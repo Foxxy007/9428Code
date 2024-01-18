@@ -18,6 +18,20 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.Joystick;
 // Utility class
 import frc.robot.Utility;
+//Controller Binds
+/* Axis 0 - X Stick 1
+Axis 1 - Y Stick 1(Not Spring-Loaded)
+Axis 2 - X Stick 2
+Axis 3 - Y Stick 2
+Axis 4 - Left Slider(Potentiometer)
+Axis 5 - Right Slider(Potentiometer)
+Axis 6 - Switch E(three way top left)
+Axis 7 - Switch F(three way top left)
+Button 1,2,3 - Switch B(three way front left)
+Button 4,5,6 - Switch C(three way front right)
+Button 7 - Button a
+Button 8 - Button D */
+
 public class Robot extends TimedRobot {
   // Drive motors
   WPI_VictorSPX motorLeftFront = new WPI_VictorSPX(1);

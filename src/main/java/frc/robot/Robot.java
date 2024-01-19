@@ -60,11 +60,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     //Re-defining
     turn = Controller1.getRawAxis(0);//x-axis 1
-    drive = Controller1.getRawAxis(1);//y-axis 1
+    drive = Controller1.getRawAxis(3);//y-axis 2
 
-    speed = Controller1.getRawAxis(3);//x-axis 2
+    speed = Controller1.getRawAxis(4);//x-axis 2
     
-    a = Controller1.getRawButton(1);
+    a = Controller1.getRawButton(7);
     //Drive
     motorLeftFront.set(drive+turn);
     motorLeftBack.set(drive+turn);

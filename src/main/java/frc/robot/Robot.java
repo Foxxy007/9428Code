@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
@@ -23,16 +22,16 @@ public class Robot extends TimedRobot {
   //No idea how this works but i've had this line for like 3 years
   private Util util = new Util();
   // Drive motors
-  WPI_VictorSPX motorLeftFront = new WPI_VictorSPX(1);
-  WPI_VictorSPX motorLeftBack = new WPI_VictorSPX(2);
-  WPI_VictorSPX motorRightFront = new WPI_VictorSPX(3);
-  WPI_VictorSPX motorRightBack = new WPI_VictorSPX(4);
+  CANSparkMax motorLeftFront = new CANSparkMax(1, MotorType.kBrushless);
+  CANSparkMax motorLeftBack = new CANSparkMax(2, MotorType.kBrushless);
+  CANSparkMax motorRightFront = new CANSparkMax(3, MotorType.kBrushless);
+  CANSparkMax motorRightBack = new CANSparkMax(4, MotorType.kBrushless);
   final GenericHID Controller1 = new GenericHID(0);
   double turn;
   double drive;
   // Flywheel
-  CANSparkMax flywheelFront = new CANSparkMax(11, MotorType.kBrushed);
-  CANSparkMax flywheelBack = new CANSparkMax(10, MotorType.kBrushed);
+  //CANSparkMax flywheelFront = new CANSparkMax(11, MotorType.kBrushed);
+  //CANSparkMax flywheelBack = new CANSparkMax(10, MotorType.kBrushed);
   double flywheelSpeed;
   boolean a;
   //Current Sensing
@@ -56,7 +55,7 @@ public class Robot extends TimedRobot {
     double rawY = ty.getDouble(0.0);
     double rawArea = ta.getDouble(0.0);
     //Robot actions
-    turn = Controller1.getRawAxis(0);//x-axis 1
+    turn = util.inputCurve(Controller1.getRawAxis(0),0.2);//x-axis 1
     drive = Controller1.getRawAxis(3);//y-axis 2
     flywheelSpeed = Controller1.getRawAxis(4);//x-axis 2
     a = Controller1.getRawButton(7);//a-button
@@ -66,17 +65,19 @@ public class Robot extends TimedRobot {
     motorRightFront.set(-drive+turn);
     motorRightBack.set(-drive+turn);
     //Flywheel
-    flywheelFront.set(flywheelSpeed);
+    /* flywheelFront.set(flywheelSpeed);
     if(a){
       flywheelBack.set(flywheelSpeed);
     }else{
       flywheelBack.set(0);
-    }
+    } */
     
     //Telemetry
-    SmartDashboard.putNumber("LimelightX", rawX);
-    SmartDashboard.putNumber("LimelightY", rawY);
-    SmartDashboard.putNumber("LimelightArea", rawArea);
+    SmartDashboard.putNumber("Limelight X", rawX);
+    SmartDashboard.putNumber("Limelight Y", rawY);
+    SmartDashboard.putNumber("Limelight Area", rawArea);
+    SmartDashboard.putNumber("Total Current", powerPanel.getCurrent(0));
+
   }
 
   }

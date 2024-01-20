@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Robot extends TimedRobot {
+  //Create util object so we can use functions from the Util file
+  //No idea how this works but i've had this line for like 3 years
+  private Util util = new Util();
   // Drive motors
   WPI_VictorSPX motorLeftFront = new WPI_VictorSPX(1);
   WPI_VictorSPX motorLeftBack = new WPI_VictorSPX(2);
@@ -69,6 +72,7 @@ public class Robot extends TimedRobot {
     }else{
       flywheelBack.set(0);
     }
+    
     //Telemetry
     SmartDashboard.putNumber("LimelightX", rawX);
     SmartDashboard.putNumber("LimelightY", rawY);

@@ -2,12 +2,17 @@ package frc.robot;
 import java.lang.Math;
 
 public class Util {
-    //Basic input curve that can vary in linearity. 
-    //1 is linear 0 is a cubic.
+    //Basic input curve that can vary in linearity. 1 is linear 0 is a cubic.
     public double inputCurve(double inputX, double linearity){
         double y;
         double a = 1-linearity;
         y = (linearity*inputX)+(a*Math.pow(inputX, 3));
-        return y;
+        return clamp(y);
+    }
+    //Min acts like a max and vice verse for whatever godforsaken reason. Min returns the lesser of two vales and vice versa.
+    public double clamp(double x){
+        double clampedValue;
+        clampedValue = Math.max(-1, Math.min(1, x));
+        return clampedValue;
     }
 }

@@ -55,8 +55,8 @@ public class Robot extends TimedRobot {
     double rawY = ty.getDouble(0.0);
     double rawArea = ta.getDouble(0.0);
     //Robot actions
-    turn = util.inputCurve(Controller1.getRawAxis(0),0.2);//x-axis 1
-    drive = Controller1.getRawAxis(3);//y-axis 2
+    turn = util.clamp(util.inputCurve(Controller1.getRawAxis(0),0.2));//x-axis 1
+    drive = util.clamp(Controller1.getRawAxis(3));//y-axis 2
     flywheelSpeed = Controller1.getRawAxis(4);//x-axis 2
     a = Controller1.getRawButton(7);//a-button
     //Drive

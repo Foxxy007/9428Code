@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
   //Create util object so we can use functions from the Util file
   //No idea how this works but i've had this line for like 3 years
-  private Util util = new Util();
+  
   // Drive motors
   CANSparkMax motorLeftFront = new CANSparkMax(1, MotorType.kBrushless);
   CANSparkMax motorLeftBack = new CANSparkMax(2, MotorType.kBrushless);
@@ -43,7 +43,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
   }
-
+  @Override
+  public void autonomousPeriodic() {
+    //Autonomous
+  }
   @Override
   public void teleopPeriodic() {
     //LimeLight Variable Updates
@@ -55,8 +58,8 @@ public class Robot extends TimedRobot {
     double rawY = ty.getDouble(0.0);
     double rawArea = ta.getDouble(0.0);
     //Robot actions
-    turn = util.clamp(util.inputCurve(Controller1.getRawAxis(0),0.2));//x-axis 1
-    drive = util.clamp(Controller1.getRawAxis(3));//y-axis 2
+    turn = Util.clamp(Util.inputCurve(Controller1.getRawAxis(0),0.2));//x-axis 1
+    drive = Util.clamp(Controller1.getRawAxis(3));//y-axis 2
     flywheelSpeed = Controller1.getRawAxis(4);//x-axis 2
     a = Controller1.getRawButton(7);//a-button
     //Drive

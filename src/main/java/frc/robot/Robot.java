@@ -7,6 +7,7 @@ package frc.robot;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -46,6 +47,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     //Autonomous
+    RamseteController controller1 = new RamseteController();
+    
   }
   @Override
   public void teleopPeriodic() {

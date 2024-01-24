@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.controller.RamseteController;
@@ -29,12 +30,14 @@ public class Robot extends TimedRobot {
   CANSparkMax motorRightFront = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax motorRightBack = new CANSparkMax(4, MotorType.kBrushless);
   final GenericHID Controller1 = new GenericHID(0);
-  private final MotorControllerGroup m_rightMotors =
   double turn;
   double drive;
   // Flywheel
-  //CANSparkMax flywheelFront = new CANSparkMax(11, MotorType.kBrushed);
-  //CANSparkMax flywheelBack = new CANSparkMax(10, MotorType.kBrushed);
+  WPI_VictorSPX flywheelLeftFront = new WPI_VictorSPX(1);
+  WPI_VictorSPX flywheelLeftBack = new WPI_VictorSPX(2);
+  WPI_VictorSPX flywheelRightFront = new WPI_VictorSPX(3);
+  WPI_VictorSPX flywheelRightBack = new WPI_VictorSPX(4);
+
   double flywheelSpeed;
   boolean a;
   //Current Sensing
@@ -49,7 +52,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     //Autonomous
-    RamseteController controller1 = new RamseteController();
+    //RamseteController controller1 = new RamseteController();
     
   }
   @Override
@@ -73,18 +76,23 @@ public class Robot extends TimedRobot {
     motorRightFront.set(-drive+turn);
     motorRightBack.set(-drive+turn);
     //Flywheel
-    /* flywheelFront.set(flywheelSpeed);
+    flywheelLeftFront.set(flywheelSpeed);
+    flywheelRightFront.set(flywheelSpeed);
     if(a){
-      flywheelBack.set(flywheelSpeed);
+      flywheelLeftBack.set(flywheelSpeed);
+      flywheelRightBack.set(flywheelSpeed);
+
     }else{
-      flywheelBack.set(0);
-    } */
+      flywheelLeftBack.set(0);
+      flywheelRightBack.set(0);
+
+    } 
     
     //Telemetry
     SmartDashboard.putNumber("Limelight X", rawX);
     SmartDashboard.putNumber("Limelight Y", rawY);
     SmartDashboard.putNumber("Limelight Area", rawArea);
-    SmartDashboard.putNumber("Total Current", powerPanel.getCurrent(0));
+    SmartDashboard.putNumber("Total Current", powerPanel.getTotalCurrent());
 
   }
 

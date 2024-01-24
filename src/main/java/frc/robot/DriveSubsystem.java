@@ -1,4 +1,4 @@
-package frc.robot;
+/* package frc.robot;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -76,7 +76,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   /** Creates a new DriveSubsystem. */
-
+/*
   public DriveSubsystem() {
 
     // We need to invert one side of the drivetrain so that positive voltages
@@ -128,7 +128,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The pose.
 
    */
-
+/*
   public Pose2d getPose() {
 
     return m_odometry.getPoseMeters();
@@ -145,7 +145,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The current wheel speeds.
 
    */
-
+/*
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
 
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
@@ -162,7 +162,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param pose The pose to which to set the odometry.
 
    */
-
+/*
   public void resetOdometry(Pose2d pose) {
 
     resetEncoders();
@@ -185,7 +185,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rot the commanded rotation
 
    */
-
+/*
   public void arcadeDrive(double fwd, double rot) {
 
     m_drive.arcadeDrive(fwd, rot);
@@ -204,7 +204,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rightVolts the commanded right output
 
    */
-
+/*
   public void tankDriveVolts(double leftVolts, double rightVolts) {
 
     m_leftMotors.setVoltage(leftVolts);
@@ -217,7 +217,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   /** Resets the drive encoders to currently read a position of 0. */
-
+/*
   public void resetEncoders() {
 
     m_leftEncoder.reset();
@@ -236,7 +236,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the average of the two encoder readings
 
    */
-
+/*
   public double getAverageEncoderDistance() {
 
     return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
@@ -253,7 +253,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the left drive encoder
 
    */
-
+/*
   public Encoder getLeftEncoder() {
 
     return m_leftEncoder;
@@ -270,7 +270,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the right drive encoder
 
    */
-
+/*
   public Encoder getRightEncoder() {
 
     return m_rightEncoder;
@@ -287,7 +287,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param maxOutput the maximum output to which the drive will be constrained
 
    */
-
+/*
   public void setMaxOutput(double maxOutput) {
 
     m_drive.setMaxOutput(maxOutput);
@@ -296,7 +296,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   /** Zeroes the heading of the robot. */
-
+/*
   public void zeroHeading() {
 
     m_gyro.reset();
@@ -313,7 +313,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the robot's heading in degrees, from -180 to 180
 
    */
-
+/*
   public double getHeading() {
 
     return m_gyro.getRotation2d().getDegrees();
@@ -330,11 +330,11 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The turn rate of the robot, in degrees per second
 
    */
-
+/*
   public double getTurnRate() {
 
     return -m_gyro.getRate();
 
   }
 
-}
+} */

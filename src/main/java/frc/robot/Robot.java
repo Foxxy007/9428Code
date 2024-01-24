@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
   CANSparkMax motorRightFront = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax motorRightBack = new CANSparkMax(4, MotorType.kBrushless);
   final GenericHID Controller1 = new GenericHID(0);
+  private final MotorControllerGroup m_rightMotors =
   double turn;
   double drive;
   // Flywheel
@@ -47,8 +49,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     //Autonomous
+    RamseteController controller1 = new RamseteController();
     
-
   }
   @Override
   public void teleopPeriodic() {

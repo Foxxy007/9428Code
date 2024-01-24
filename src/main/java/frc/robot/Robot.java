@@ -47,8 +47,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     //Autonomous
-    RamseteController controller1 = new RamseteController();
     
+
   }
   @Override
   public void teleopPeriodic() {

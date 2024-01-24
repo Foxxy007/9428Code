@@ -48,6 +48,11 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotInit() {
+    flywheelRightFront.setInverted(true);
+    flywheelRightBack.setInverted(true);
+
+
+
   }
   @Override
   public void autonomousPeriodic() {
@@ -79,8 +84,8 @@ public class Robot extends TimedRobot {
     flywheelLeftFront.set(flywheelSpeed);
     flywheelRightFront.set(flywheelSpeed);
     if(a){
-      flywheelLeftBack.set(flywheelSpeed);
-      flywheelRightBack.set(flywheelSpeed);
+      flywheelLeftBack.set(0.3+flywheelSpeed*0.7);
+      flywheelRightBack.set(0.3+flywheelSpeed*0.7);
 
     }else{
       flywheelLeftBack.set(0);

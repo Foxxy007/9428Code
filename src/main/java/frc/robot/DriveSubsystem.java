@@ -1,4 +1,10 @@
 /* package frc.robot;
+ 
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkRelativeEncoder;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -6,97 +12,40 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.examples.ramsetecommand.Constants.DriveConstants;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
 
-  // The motors on the left side of the drive.
+  CANSparkMax motorLeft = new CANSparkMax(1, MotorType.kBrushless);
+  CANSparkMax motorLeftFollower = new CANSparkMax(2, MotorType.kBrushless);
+  CANSparkMax motorRight = new CANSparkMax(3, MotorType.kBrushless);
+  CANSparkMax motorRightFollower = new CANSparkMax(4, MotorType.kBrushless);
 
-  private final MotorControllerGroup m_leftMotors =
+  private final DifferentialDrive drive = new DifferentialDrive(motorLeft, motorRight);
 
-      new MotorControllerGroup(
+  RelativeEncoder motorLeftEncoder = motorLeft.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
+  RelativeEncoder motorRightEncoder = motorRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
+  //Gyroscope - replace with our navx2 module
+  //private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
-          new PWMSparkMax(DriveConstants.kLeftMotor1Port),
-
-          new PWMSparkMax(DriveConstants.kLeftMotor2Port));
-
-
-  // The motors on the right side of the drive.
-
-  private final MotorControllerGroup m_rightMotors =
-
-      new MotorControllerGroup(
-
-          new PWMSparkMax(DriveConstants.kRightMotor1Port),
-
-          new PWMSparkMax(DriveConstants.kRightMotor2Port));
-
-
-  // The robot's drive
-
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
-
-
-  // The left-side drive encoder
-
-  private final Encoder m_leftEncoder =
-
-      new Encoder(
-
-          DriveConstants.kLeftEncoderPorts[0],
-
-          DriveConstants.kLeftEncoderPorts[1],
-
-          DriveConstants.kLeftEncoderReversed);
-
-
-  // The right-side drive encoder
-
-  private final Encoder m_rightEncoder =
-
-      new Encoder(
-
-          DriveConstants.kRightEncoderPorts[0],
-
-          DriveConstants.kRightEncoderPorts[1],
-
-          DriveConstants.kRightEncoderReversed);
-
-
-  // The gyro sensor
-
-  private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
-
-
-  // Odometry class for tracking robot pose
-
+  // Odometry class for tracking robot pos
   private final DifferentialDriveOdometry m_odometry;
 
-
-  /** Creates a new DriveSubsystem. */
-/*
   public DriveSubsystem() {
-
-    // We need to invert one side of the drivetrain so that positive voltages
-
-    // result in both sides moving forward. Depending on how your robot's
-
-    // gearbox is constructed, you might have to invert the left side instead.
-
-    m_rightMotors.setInverted(true);
-
+    //Set the motors to work in pairs so you only control motor 1 and 3
+    motorLeftFollower.follow(motorLeft);
+    motorRightFollower.follow(motorRight);
+    // We need to invert one side of the drivetrain so that positive voltages 
+    //result in both sides moving forward. Depending on how your robot's
+    motorRight.setInverted(true);
 
     // Sets the distance per pulse for the encoders
+    motorLeftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+    m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
 
-    m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-
-    m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-
-
-    resetEncoders();
-
+    // Reset Encoder values to 0
+    
     m_odometry =
 
         new DifferentialDriveOdometry(
@@ -337,4 +286,4 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-} */
+} */ 

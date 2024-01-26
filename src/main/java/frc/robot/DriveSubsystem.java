@@ -33,23 +33,22 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDriveOdometry m_odometry;
 
   public DriveSubsystem() {
+
     //Set the motors to work in pairs so you only control motor 1 and 3
     motorLeftFollower.follow(motorLeft);
     motorRightFollower.follow(motorRight);
-    // We need to invert one side of the drivetrain so that positive voltages 
-    //result in both sides moving forward. Depending on how your robot's
+
+    //Invert one side of the drivetrain
     motorRight.setInverted(true);
 
-    // Sets the distance per pulse for the encoders
-    motorLeftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+    // Sets the distance per pulse for the encoders. Still troubleshooting to 
+    //figure out the proper ratio/how the ratio is set up
+    motorLeftEncoder.setPositionConversionFactor(Constants.kEncoderDistancePerPulse);
+    motorRightEncoder.setPositionConversionFactor(Constants.kEncoderDistancePerPulse);
 
     // Reset Encoder values to 0
-    
     m_odometry =
-
         new DifferentialDriveOdometry(
-
             m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
 
   }

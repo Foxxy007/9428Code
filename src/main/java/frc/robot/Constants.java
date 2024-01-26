@@ -14,5 +14,5 @@ public class Constants {
     public static final double kMaxAccelerationMetersPerSecondSquared = 0;
     public static final double kRamseteB = 0;
     public static final double kRamseteZeta = 0;
-    public static final double kEncoderDistancePerPulse = 0;
+    public static final double kEncoderDistancePerPulse = 0; //I don't know if this is per pulse or per rotation
 }

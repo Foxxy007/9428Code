@@ -20,29 +20,31 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 
 public class Robot extends TimedRobot {
-  //Create util object so we can use functions from the Util file
-  //No idea how this works but i've had this line for like 3 years
-  
+  AHRS ahrs;
   // Drive motors
   CANSparkMax motorLeft = new CANSparkMax(1, MotorType.kBrushless);
   CANSparkMax motorLeftFollower = new CANSparkMax(2, MotorType.kBrushless);
   CANSparkMax motorRight = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax motorRightFollower = new CANSparkMax(4, MotorType.kBrushless);
 
-  final GenericHID Controller1 = new GenericHID(0);
+  // Create Controller
+  GenericHID Controller1 = new GenericHID(0);
   double turn;
   double drive;
+
   // Flywheel
   WPI_VictorSPX flywheelLeftFront = new WPI_VictorSPX(1);
   WPI_VictorSPX flywheelLeftBack = new WPI_VictorSPX(2);
   WPI_VictorSPX flywheelRightFront = new WPI_VictorSPX(3);
   WPI_VictorSPX flywheelRightBack = new WPI_VictorSPX(4);
-
   double flywheelSpeed;
   boolean a;
+
   //Current Sensing
   PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
 
@@ -51,13 +53,14 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotInit() {
+
     flywheelRightFront.setInverted(true);
     flywheelRightBack.setInverted(true);
     motorLeftFollower.follow(motorLeft);
     motorRightFollower.follow(motorRight);
-
-
-
+    ahrs = new AHRS(SPI.Port.kMXP);
+    ahrs.reset();
+    
   }
   @Override
   public void autonomousPeriodic() {
@@ -75,14 +78,17 @@ public class Robot extends TimedRobot {
     double rawX = tx.getDouble(0.0);
     double rawY = ty.getDouble(0.0);
     double rawArea = ta.getDouble(0.0);
+
     //Robot actions
     turn = Util.clamp(Util.inputCurve(Controller1.getRawAxis(0),0.2));//x-axis 1
     drive = Util.clamp(Controller1.getRawAxis(3));//y-axis 2
-    flywheelSpeed = Controller1.getRawAxis(4);//x-axis 2
+    flywheelSpeed = Controller1.getRawAxis(4);//left slider
     a = Controller1.getRawButton(7);//a-button
+
     //Drive
     motorLeft.set(drive+turn);
     motorRight.set(-drive+turn);
+
     //Flywheel
     flywheelLeftFront.set(flywheelSpeed);
     flywheelRightFront.set(flywheelSpeed);
@@ -99,6 +105,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Limelight Y", rawY);
     SmartDashboard.putNumber("Limelight Area", rawArea);
     SmartDashboard.putNumber("Total Current", powerPanel.getTotalCurrent());
+    SmartDashboard.putNumber("Test Angle", ahrs.getRawGyroY());
+
   }
 
   }

@@ -1,4 +1,4 @@
-/* package frc.robot;
+/*package frc.robot;
  
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -11,9 +11,12 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.examples.ramsetecommand.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+
+
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -27,7 +30,7 @@ public class DriveSubsystem extends SubsystemBase {
   RelativeEncoder motorLeftEncoder = motorLeft.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
   RelativeEncoder motorRightEncoder = motorRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
   //Gyroscope - replace with our navx2 module
-  //private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+  AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
   // Odometry class for tracking robot pos
   private final DifferentialDriveOdometry m_odometry;
@@ -48,8 +51,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     // Reset Encoder values to 0
     m_odometry =
-        new DifferentialDriveOdometry(
-            m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+      new DifferentialDriveOdometry(
+        ahrs.getAngle(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance()); //Need to create a getDistance method for this
 
   }
 

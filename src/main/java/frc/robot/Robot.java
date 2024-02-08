@@ -42,11 +42,21 @@ public class Robot extends TimedRobot {
   WPI_VictorSPX flywheelLeftBack = new WPI_VictorSPX(2);
   WPI_VictorSPX flywheelRightFront = new WPI_VictorSPX(3);
   WPI_VictorSPX flywheelRightBack = new WPI_VictorSPX(4);
-  double flywheelSpeed;
+  CANSparkMax intakeBelt = new CANSparkMax(6, MotorType.kBrushed);
+  CANSparkMax intakeTopRoller = new CANSparkMax(5, MotorType.kBrushed);
+  CANSparkMax intakeBottomRoller = new CANSparkMax(7, MotorType.kBrushed);
+
+  double leftSlider;
+  double rightSlider;
+
+  CANSparkMax frontMotor = new CANSparkMax(10, MotorType.kBrushless);
+
   boolean a;
+  boolean d;
 
   //Current Sensing
   PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   public Robot() { 
   }
@@ -59,7 +69,6 @@ public class Robot extends TimedRobot {
     motorLeftFollower.follow(motorLeft);
     motorRightFollower.follow(motorRight);
     ahrs = new AHRS(SPI.Port.kMXP);
-    ahrs.reset();
     
   }
   @Override
@@ -70,8 +79,15 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void teleopPeriodic() {
+    if (ahrs.isCalibrating()) {
+      //Thread.yield();
+      SmartDashboard.putNumber("Is Calibrating", 1 );
+    }
+    if(ahrs.isConnected()){
+      SmartDashboard.putNumber("Is Connected", 1 );
+    }
+
     //LimeLight Variable Updates
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
@@ -82,22 +98,46 @@ public class Robot extends TimedRobot {
     //Robot actions
     turn = Util.clamp(Util.inputCurve(Controller1.getRawAxis(0),0.2));//x-axis 1
     drive = Util.clamp(Controller1.getRawAxis(3));//y-axis 2
-    flywheelSpeed = Controller1.getRawAxis(4);//left slider
+    leftSlider = Controller1.getRawAxis(4);//left slider
+    rightSlider = Controller1.getRawAxis(5);//left slider
+
     a = Controller1.getRawButton(7);//a-button
+    d = Controller1.getRawButton(8);//a-button
 
     //Drive
     motorLeft.set(drive+turn);
     motorRight.set(-drive+turn);
 
     //Flywheel
-    flywheelLeftFront.set(flywheelSpeed);
-    flywheelRightFront.set(flywheelSpeed);
-    if(a){
-      flywheelLeftBack.set(0.3+flywheelSpeed*0.7);
-      flywheelRightBack.set(0.3+flywheelSpeed*0.7);
+    
+  /*   if(a){ //Spins Rear Flywheels
+      flywheelLeftBack.set(rightSlider);
+      flywheelRightBack.set(rightSlider);
     }else{
       flywheelLeftBack.set(0);
       flywheelRightBack.set(0);
+    }  */
+    if(a){
+      intakeBelt.set(leftSlider);
+      intakeTopRoller.set(rightSlider);
+      intakeBottomRoller.set(rightSlider);
+    }else{
+      intakeBelt.set(0);
+      intakeTopRoller.set(0);
+      intakeBottomRoller.set(0);
+    }
+    if(d){
+      frontMotor.set(-0.1);
+      flywheelLeftBack.set(0.70);
+      flywheelRightBack.set(0.70);
+      flywheelLeftFront.set(0.05);
+      flywheelRightFront.set(0.05);
+    }else{
+      frontMotor.set(0);
+      flywheelLeftBack.set(0);
+      flywheelRightBack.set(0);
+      flywheelLeftFront.set(0);
+      flywheelRightFront.set(0);
     } 
     
     //Telemetry
@@ -105,7 +145,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Limelight Y", rawY);
     SmartDashboard.putNumber("Limelight Area", rawArea);
     SmartDashboard.putNumber("Total Current", powerPanel.getTotalCurrent());
-    SmartDashboard.putNumber("Test Angle", ahrs.getRawGyroY());
+    SmartDashboard.putNumber("Test Angle",ahrs.getYaw());
+    SmartDashboard.putNumber("Front Flywheel Speed",leftSlider);
+    SmartDashboard.putNumber("Rear Flywheel Speed",rightSlider);
+
+
 
   }
 

@@ -33,10 +33,9 @@ public class DriveSubsystem extends SubsystemBase {
   AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
   // Odometry class for tracking robot pos
-  private final DifferentialDriveOdometry m_odometry;
+  private final DifferentialDriveOdometry odometry;
 
   public DriveSubsystem() {
-
     //Set the motors to work in pairs so you only control motor 1 and 3
     motorLeftFollower.follow(motorLeft);
     motorRightFollower.follow(motorRight);
@@ -50,242 +49,94 @@ public class DriveSubsystem extends SubsystemBase {
     motorRightEncoder.setPositionConversionFactor(Constants.kEncoderDistancePerPulse);
 
     // Reset Encoder values to 0
-    m_odometry =
+    motorLeftEncoder.setPosition(0);
+    motorRightEncoder.setPosition(0);
+
+    odometry =
       new DifferentialDriveOdometry(
-        ahrs.getAngle(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance()); //Need to create a getDistance method for this
+      ahrs.getRotation2d(),
+      motorLeftEncoder.getPosition(),
+      motorRightEncoder.getPosition()); //Need to set the conversion factor
 
   }
-
-
   @Override
 
+  // Update the odometry in the periodic block
   public void periodic() {
-
-    // Update the odometry in the periodic block
-
-    m_odometry.update(
-
-        m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
-
+    odometry.update(
+      ahrs.getRotation2d(),
+      motorLeftEncoder.getPosition(),
+      motorRightEncoder.getPosition()); //Need to set the conversion factor
   }
 
-
-  /**
-
-   * Returns the currently-estimated pose of the robot.
-
-   *
-
-   * @return The pose.
-
-   */
-/*
+  //Returns the currently-estimated pose of the robot.
   public Pose2d getPose() {
-
-    return m_odometry.getPoseMeters();
-
+    return odometry.getPoseMeters();
   }
 
-
-  /**
-
-   * Returns the current wheel speeds of the robot.
-
-   *
-
-   * @return The current wheel speeds.
-
-   */
-/*
+  //Returns the current wheel speeds of the robot.
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
-
   }
 
-
-  /**
-
-   * Resets the odometry to the specified pose.
-
-   *
-
-   * @param pose The pose to which to set the odometry.
-
-   */
-/*
+  //Resets the odometry to the specified pose.
   public void resetOdometry(Pose2d pose) {
-
     resetEncoders();
-
-    m_odometry.resetPosition(
-
-        m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance(), pose);
-
+    odometry.resetPosition(
+    gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance(), pose);
   }
-
-
-  /**
-
-   * Drives the robot using arcade controls.
-
-   *
-
-   * @param fwd the commanded forward movement
-
-   * @param rot the commanded rotation
-
-   */
-/*
+    
+  //Drives the robot using arcade controls.
   public void arcadeDrive(double fwd, double rot) {
-
-    m_drive.arcadeDrive(fwd, rot);
-
+    drive.arcadeDrive(fwd, rot);
   }
 
-
-  /**
-
-   * Controls the left and right sides of the drive directly with voltages.
-
-   *
-
-   * @param leftVolts the commanded left output
-
-   * @param rightVolts the commanded right output
-
-   */
-/*
+  //Controls the left and right sides of the drive directly with voltages.
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-
-    m_leftMotors.setVoltage(leftVolts);
-
-    m_rightMotors.setVoltage(rightVolts);
-
-    m_drive.feed();
-
+    motorLeft.setVoltage(leftVolts);
+    motorRight.setVoltage(rightVolts);
+    drive.feed();
   }
 
-
-  /** Resets the drive encoders to currently read a position of 0. */
-/*
+  //Resets the drive encoders to currently read a position of 0.
   public void resetEncoders() {
-
-    m_leftEncoder.reset();
-
-    m_rightEncoder.reset();
-
+    motorLeftEncoder.setPosition(0);
+    motorRightEncoder.setPosition(0);
   }
 
-
-  /**
-
-   * Gets the average distance of the two encoders.
-
-   *
-
-   * @return the average of the two encoder readings
-
-   */
-/*
+  //Gets the average distance of the two encoders.
   public double getAverageEncoderDistance() {
-
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
-
+    return (motorLeftEncoder.getPosition() + motorRightEncoder.getPosition()) / 2.0;
   }
-
-
-  /**
-
-   * Gets the left drive encoder.
-
-   *
-
-   * @return the left drive encoder
-
-   */
-/*
+/* 
+  //Gets the left drive encoder.
   public Encoder getLeftEncoder() {
-
-    return m_leftEncoder;
-
-  }
-
-
-  /**
-
-   * Gets the right drive encoder.
-
-   *
-
-   * @return the right drive encoder
-
-   */
-/*
+    return motorLeftEncoder;
+  } */
+/* 
+  //Gets the right drive encoder.
   public Encoder getRightEncoder() {
-
     return m_rightEncoder;
-
-  }
-
-
-  /**
-
-   * Sets the max output of the drive. Useful for scaling the drive to drive more slowly.
-
-   *
-
-   * @param maxOutput the maximum output to which the drive will be constrained
-
-   */
-/*
+  } */
+/* 
+  //Sets the max output of the drive. Useful for scaling the drive to drive more slowly.
   public void setMaxOutput(double maxOutput) {
-
-    m_drive.setMaxOutput(maxOutput);
-
+    drive.setMaxOutput(maxOutput);
   }
 
-
-  /** Zeroes the heading of the robot. */
-/*
+  //Zeroes the heading of the robot. 
   public void zeroHeading() {
-
-    m_gyro.reset();
-
+    ahrs.zeroYaw();
   }
 
-
-  /**
-
-   * Returns the heading of the robot.
-
-   *
-
-   * @return the robot's heading in degrees, from -180 to 180
-
-   */
-/*
+  //Returns the heading of the robot.
   public double getHeading() {
-
-    return m_gyro.getRotation2d().getDegrees();
-
+    return gyro.getRotation2d().getDegrees();
   }
-
-
-  /**
-
-   * Returns the turn rate of the robot.
-
-   *
-
-   * @return The turn rate of the robot, in degrees per second
-
-   */
-/*
+  
+  //Returns the turn rate of the robot.
   public double getTurnRate() {
-
-    return -m_gyro.getRate();
-
+    return -gyro.getRate();
   }
-
-} */ 
+}
+*/

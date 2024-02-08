@@ -10,7 +10,7 @@ public class Util {
         y = (linearity*inputX)+(a*Math.pow(inputX, 3));
         return y;
     }
-    //Min acts like a max and vice versa for whatever godforsaken reason. Min returns the lesser of two vales and vice versa.
+    //Keeps values between -1 and 1
     public static double clamp(double x){
         double clampedValue;
         clampedValue = Math.max(-1, Math.min(1, x));

@@ -52,13 +52,14 @@ public class Robot extends TimedRobot {
 
   CANSparkMax frontMotor = new CANSparkMax(10, MotorType.kBrushless);
 
-  boolean aButton;
-  boolean bButton;
-  boolean yButton;
-  boolean xButton;
-  int pov;
-  double rightTrigger;
-  double leftTrigger;
+
+
+  double stickX1;
+  double stickY1;
+  double stickY2;
+  boolean buttonD;
+  boolean buttonA;
+  boolean buttonG;
 
 
 
@@ -107,66 +108,43 @@ public class Robot extends TimedRobot {
     double rawY = ty.getDouble(0.0);
     double rawArea = ta.getDouble(0.0);
 
+    //Controller Mapping
+    stickX1 = Controller1.getRawAxis(0);
+    stickY1 = Controller1.getRawAxis(1);
+    stickY2 = Controller1.getRawAxis(4);
+    buttonA = Controller1.getRawButton(3);
+    buttonD = Controller1.getRawButton(4);
+    buttonG = Controller1.getRawButton(5);
+
     //Robot actions
-    turn = Util.clamp(Util.inputCurve(Controller1.getRawAxis(4),0.5));//x-axis 1
-    drive = Util.clamp(-Util.inputCurve(Controller1.getRawAxis(1), 0.5));//y-axis 2
+    turn = Util.clamp(Util.inputCurve(stickX1,0.2));//x-axis 1
+    drive = Util.clamp(-Util.inputCurve(stickY2, 0.2));//y-axis 2
 
-    aButton = Controller1.getRawButton(1);//a-button
-    bButton = Controller1.getRawButton(2);//a-button
-    yButton = Controller1.getRawButton(4);//a-button
-    xButton = Controller1.getRawButton(3);//a-button
 
-    pov = Controller1.getPOV();
-    leftTrigger = Controller1.getRawAxis(2);
-    rightTrigger = Controller1.getRawAxis(3);
+ 
     //Drive
     motorLeft.set(drive+turn);
     motorRight.set(-drive+turn);
-    //motorLeft.set(1);
     
 
-    //Flywheel
-    
-  /*   if(a){ //Spins Rear Flywheels
-      flywheelLeftBack.set(rightSlider);
-      flywheelRightBack.set(rightSlider);
-    }else{
-      flywheelLeftBack.set(0);
-      flywheelRightBack.set(0);
-    }  */
-    intakeBelt.set(rightTrigger-leftTrigger);
-    intakeTopRoller.set(rightTrigger-leftTrigger);
-    intakeBottomRoller.set(rightTrigger-leftTrigger);
- /*    
- if(pov == 0){
-      intakeBelt.set(1);
-      intakeTopRoller.set(1);
-      intakeBottomRoller.set(1);
-    }
-    else if(pov == 180){
-      intakeBelt.set(-1);
-      intakeTopRoller.set(-1);
-      intakeBottomRoller.set(-1); 
-    }else{
-      
-      intakeBelt.set(0);
-      intakeTopRoller.set(0);
-      intakeBottomRoller.set(0);
-    }
-    */
-    if(bButton){
+    //Flywheel and Intake
+    intakeBelt.set(stickY1);
+    intakeTopRoller.set(stickY1);
+    intakeBottomRoller.set(stickY1);
+
+    if(buttonD){ //AmpScoring
       frontMotor.set(0.1);
       flywheelLeftBack.set(0.20);
       flywheelRightBack.set(0.20);
       flywheelLeftFront.set(0.1);
       flywheelRightFront.set(0.1);
     }
-    else if(yButton){
+    else if(buttonA){ //Speaker Scoring
       flywheelLeftBack.set(1);
       flywheelRightBack.set(1);
       flywheelLeftFront.set(1);
       flywheelRightFront.set(1);
-    }else if(aButton){
+    }else if(buttonG){//Intake through shooter
       flywheelLeftBack.set(-0.4);
       flywheelRightBack.set(-0.4);
       flywheelLeftFront.set(-0.4);

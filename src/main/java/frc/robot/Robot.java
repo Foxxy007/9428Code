@@ -12,13 +12,16 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkRelativeEncoder;
 
 import edu.wpi.first.math.controller.RamseteController;
-
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
@@ -39,7 +42,7 @@ public class Robot extends TimedRobot {
   double turn;
   double drive;
 
-  // Flywheel
+  // Flywheel & Intake
   CANSparkMax flywheelLeftFront = new CANSparkMax(6, MotorType.kBrushless);
   CANSparkMax flywheelLeftBack = new CANSparkMax(7, MotorType.kBrushless);
   CANSparkMax flywheelRightFront = new CANSparkMax(5, MotorType.kBrushless);
@@ -47,6 +50,7 @@ public class Robot extends TimedRobot {
   CANSparkMax intakeBelt = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax intakeTopRoller = new CANSparkMax(4, MotorType.kBrushed);
   CANSparkMax intakeBottomRoller = new CANSparkMax(2, MotorType.kBrushed);
+<<<<<<< Updated upstream
 
   double leftSlider;
   double rightSlider;
@@ -56,6 +60,17 @@ public class Robot extends TimedRobot {
 
   //Controler Values
   double stickX1;
+=======
+  CANSparkMax frontMotor = new CANSparkMax(10, MotorType.kBrushless);
+
+  //LED
+  Spark blinkin = new Spark(0);
+  ShuffleboardTab tab = Shuffleboard.getTab("LED");
+  GenericEntry ledPWM = tab.add("Max Speed", 1).getEntry();
+
+
+  double stickX2;
+>>>>>>> Stashed changes
   double stickY1;
   double stickY2;
   boolean buttonD;
@@ -112,7 +127,7 @@ public class Robot extends TimedRobot {
     double rawArea = ta.getDouble(0.0);
 
     //Controller Mapping
-    stickX1 = Controller1.getRawAxis(0);
+    stickX2 = Controller1.getRawAxis(3);
     stickY1 = Controller1.getRawAxis(1);
     stickY2 = Controller1.getRawAxis(4);
     buttonA = Controller1.getRawButton(3);
@@ -120,20 +135,21 @@ public class Robot extends TimedRobot {
     buttonG = Controller1.getRawButton(5);
 
     //Robot actions
-    turn = Util.clamp(Util.inputCurve(stickX1,0.2));//x-axis 1
-    drive = Util.clamp(-Util.inputCurve(stickY2, 0.2));//y-axis 2
+    turn = Util.clamp(Util.inputCurve(stickX2,0.2));//x-axis 1
+    drive = Util.clamp(-Util.inputCurve(stickY1, 0.2));//y-axis 2
 
-
- 
+    //LED
+    double led = ledPWM.getDouble(1.0);
+    blinkin.set(led);
     //Drive
     motorLeft.set(drive+turn);
     motorRight.set(-drive+turn);
     
 
     //Flywheel and Intake
-    intakeBelt.set(stickY1);
-    intakeTopRoller.set(stickY1);
-    intakeBottomRoller.set(stickY1);
+    intakeBelt.set(stickY2);
+    intakeTopRoller.set(stickY2);
+    intakeBottomRoller.set(stickY2);
 
     if(buttonD){ //AmpScoring
       frontMotor.set(0.1);
@@ -166,8 +182,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Limelight Area", rawArea);
     SmartDashboard.putNumber("Total Current", powerPanel.getTotalCurrent());
     SmartDashboard.putNumber("Test Angle",ahrs.getYaw());
-    SmartDashboard.putNumber("Front Flywheel Speed",leftSlider);
-    SmartDashboard.putNumber("Rear Flywheel Speed",rightSlider);
+    //SmartDashboard.putNumber("Front Flywheel Speed",leftSlider);
+    //SmartDashboard.putNumber("Rear Flywheel Speed",rightSlider);
 
 
 

@@ -5,7 +5,8 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkRelativeEncoder;
@@ -27,10 +28,10 @@ import edu.wpi.first.wpilibj.SPI;
 public class Robot extends TimedRobot {
   AHRS ahrs;
   // Drive motors
-  CANSparkMax motorLeft = new CANSparkMax(1, MotorType.kBrushless);
-  CANSparkMax motorLeftFollower = new CANSparkMax(2, MotorType.kBrushless);
-  CANSparkMax motorRight = new CANSparkMax(3, MotorType.kBrushless);
-  CANSparkMax motorRightFollower = new CANSparkMax(4, MotorType.kBrushless);
+  TalonFX motorLeft = new TalonFX(2);
+  TalonFX motorLeftFollower = new TalonFX(3);
+  TalonFX motorRight = new TalonFX(1);
+  TalonFX motorRightFollower = new TalonFX(4);
 
   // Create Controller
   GenericHID Controller1 = new GenericHID(0);
@@ -38,21 +39,28 @@ public class Robot extends TimedRobot {
   double drive;
 
   // Flywheel
-  WPI_VictorSPX flywheelLeftFront = new WPI_VictorSPX(1);
-  WPI_VictorSPX flywheelLeftBack = new WPI_VictorSPX(2);
-  WPI_VictorSPX flywheelRightFront = new WPI_VictorSPX(3);
-  WPI_VictorSPX flywheelRightBack = new WPI_VictorSPX(4);
-  CANSparkMax intakeBelt = new CANSparkMax(6, MotorType.kBrushed);
-  CANSparkMax intakeTopRoller = new CANSparkMax(5, MotorType.kBrushed);
-  CANSparkMax intakeBottomRoller = new CANSparkMax(7, MotorType.kBrushed);
+  CANSparkMax flywheelLeftFront = new CANSparkMax(6, MotorType.kBrushless);
+  CANSparkMax flywheelLeftBack = new CANSparkMax(7, MotorType.kBrushless);
+  CANSparkMax flywheelRightFront = new CANSparkMax(5, MotorType.kBrushless);
+  CANSparkMax flywheelRightBack = new CANSparkMax(8, MotorType.kBrushless);
+  CANSparkMax intakeBelt = new CANSparkMax(3, MotorType.kBrushless);
+  CANSparkMax intakeTopRoller = new CANSparkMax(4, MotorType.kBrushed);
+  CANSparkMax intakeBottomRoller = new CANSparkMax(2, MotorType.kBrushed);
 
   double leftSlider;
   double rightSlider;
 
   CANSparkMax frontMotor = new CANSparkMax(10, MotorType.kBrushless);
 
-  boolean a;
-  boolean d;
+  boolean aButton;
+  boolean bButton;
+  boolean yButton;
+  boolean xButton;
+  int pov;
+  double rightTrigger;
+  double leftTrigger;
+
+
 
   //Current Sensing
   PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
@@ -63,11 +71,15 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotInit() {
-
+    frontMotor.setInverted(true);
     flywheelRightFront.setInverted(true);
     flywheelRightBack.setInverted(true);
-    motorLeftFollower.follow(motorLeft);
-    motorRightFollower.follow(motorRight);
+    intakeTopRoller.setInverted(true);
+    intakeBottomRoller.setInverted(true);
+
+    motorLeftFollower.setControl(new Follower(motorLeft.getDeviceID(), false));
+    motorRightFollower.setControl(new Follower(motorRight.getDeviceID(), false));
+
     ahrs = new AHRS(SPI.Port.kMXP);
     
   }
@@ -96,17 +108,22 @@ public class Robot extends TimedRobot {
     double rawArea = ta.getDouble(0.0);
 
     //Robot actions
-    turn = Util.clamp(Util.inputCurve(Controller1.getRawAxis(0),0.2));//x-axis 1
-    drive = Util.clamp(Controller1.getRawAxis(3));//y-axis 2
-    leftSlider = Controller1.getRawAxis(4);//left slider
-    rightSlider = Controller1.getRawAxis(5);//left slider
+    turn = Util.clamp(Util.inputCurve(Controller1.getRawAxis(4),0.5));//x-axis 1
+    drive = Util.clamp(-Util.inputCurve(Controller1.getRawAxis(1), 0.5));//y-axis 2
 
-    a = Controller1.getRawButton(7);//a-button
-    d = Controller1.getRawButton(8);//a-button
+    aButton = Controller1.getRawButton(1);//a-button
+    bButton = Controller1.getRawButton(2);//a-button
+    yButton = Controller1.getRawButton(4);//a-button
+    xButton = Controller1.getRawButton(3);//a-button
 
+    pov = Controller1.getPOV();
+    leftTrigger = Controller1.getRawAxis(2);
+    rightTrigger = Controller1.getRawAxis(3);
     //Drive
     motorLeft.set(drive+turn);
     motorRight.set(-drive+turn);
+    //motorLeft.set(1);
+    
 
     //Flywheel
     
@@ -117,21 +134,43 @@ public class Robot extends TimedRobot {
       flywheelLeftBack.set(0);
       flywheelRightBack.set(0);
     }  */
-    if(a){
-      intakeBelt.set(leftSlider);
-      intakeTopRoller.set(rightSlider);
-      intakeBottomRoller.set(rightSlider);
+    intakeBelt.set(rightTrigger-leftTrigger);
+    intakeTopRoller.set(rightTrigger-leftTrigger);
+    intakeBottomRoller.set(rightTrigger-leftTrigger);
+ /*    
+ if(pov == 0){
+      intakeBelt.set(1);
+      intakeTopRoller.set(1);
+      intakeBottomRoller.set(1);
+    }
+    else if(pov == 180){
+      intakeBelt.set(-1);
+      intakeTopRoller.set(-1);
+      intakeBottomRoller.set(-1); 
     }else{
+      
       intakeBelt.set(0);
       intakeTopRoller.set(0);
       intakeBottomRoller.set(0);
     }
-    if(d){
-      frontMotor.set(-0.1);
-      flywheelLeftBack.set(0.70);
-      flywheelRightBack.set(0.70);
-      flywheelLeftFront.set(0.05);
-      flywheelRightFront.set(0.05);
+    */
+    if(bButton){
+      frontMotor.set(0.1);
+      flywheelLeftBack.set(0.20);
+      flywheelRightBack.set(0.20);
+      flywheelLeftFront.set(0.1);
+      flywheelRightFront.set(0.1);
+    }
+    else if(yButton){
+      flywheelLeftBack.set(1);
+      flywheelRightBack.set(1);
+      flywheelLeftFront.set(1);
+      flywheelRightFront.set(1);
+    }else if(aButton){
+      flywheelLeftBack.set(-0.4);
+      flywheelRightBack.set(-0.4);
+      flywheelLeftFront.set(-0.4);
+      flywheelRightFront.set(-0.4);
     }else{
       frontMotor.set(0);
       flywheelLeftBack.set(0);

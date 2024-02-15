@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
   CANSparkMax intakeBelt = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax intakeTopRoller = new CANSparkMax(4, MotorType.kBrushed);
   CANSparkMax intakeBottomRoller = new CANSparkMax(2, MotorType.kBrushed);
-  
+
   double leftSlider;
   double rightSlider;
 
@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
   //Initialization of NetworkTable for Limelight
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
-  public Robot() { 
+  public Robot() {// class constructor.
   }
   
   @Override
@@ -95,8 +95,8 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void teleopPeriodic() {
+    // Check for sensor calibration
     if (ahrs.isCalibrating()) {
-      //Thread.yield();
       SmartDashboard.putNumber("Is Calibrating", 1 );
     }
     if(ahrs.isConnected()){

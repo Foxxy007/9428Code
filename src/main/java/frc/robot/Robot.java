@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ColorSensorV3;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkRelativeEncoder;
 
@@ -24,11 +25,15 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-
+import edu.wpi.first.wpilibj.I2C;
 
 public class Robot extends TimedRobot {
+  I2C.Port i2cPort = I2C.Port.kOnboard;
+  ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   AHRS ahrs;
   // Drive motors
   TalonFX motorLeft = new TalonFX(2);
@@ -96,6 +101,9 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void teleopPeriodic() {
+    Color detectedColor = colorSensor.getColor();
+    double IR = colorSensor.getIR();
+    int proximity = colorSensor.getProximity();
     if (ahrs.isCalibrating()) {
       //Thread.yield();
       SmartDashboard.putNumber("Is Calibrating", 1 );
@@ -174,6 +182,11 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("Front Flywheel Speed",leftSlider);
     //SmartDashboard.putNumber("Rear Flywheel Speed",rightSlider);
 
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("IR", IR);
+    SmartDashboard.putNumber("Proximity", proximity);
 
 
   }

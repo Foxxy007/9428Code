@@ -29,9 +29,8 @@ import edu.wpi.first.wpilibj.SPI;
 
 
 public class Robot extends TimedRobot {
-  // Initialization of sensors(Gyro, Accelerometer et cetera)
   AHRS ahrs;
-  // Drive motors(CANs?)
+  // Drive motors
   TalonFX motorLeft = new TalonFX(2);
   TalonFX motorLeftFollower = new TalonFX(3);
   TalonFX motorRight = new TalonFX(1);
@@ -50,27 +49,16 @@ public class Robot extends TimedRobot {
   CANSparkMax intakeBelt = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax intakeTopRoller = new CANSparkMax(4, MotorType.kBrushed);
   CANSparkMax intakeBottomRoller = new CANSparkMax(2, MotorType.kBrushed);
-<<<<<<< Updated upstream
-
-  double leftSlider;
-  double rightSlider;
-
-  CANSparkMax frontMotor = new CANSparkMax(10, MotorType.kBrushless);//? What is this motor for. Too ambigious.
-
-
-  //Controler Values
-  double stickX1;
-=======
   CANSparkMax frontMotor = new CANSparkMax(10, MotorType.kBrushless);
 
   //LED
   Spark blinkin = new Spark(0);
   ShuffleboardTab tab = Shuffleboard.getTab("LED");
   GenericEntry ledPWM = tab.add("Max Speed", 1).getEntry();
-
-
+  double idleLED = -0.21;
+  double speakerLED = -0.97;
+  double ampLED = 0; 
   double stickX2;
->>>>>>> Stashed changes
   double stickY1;
   double stickY2;
   boolean buttonD;
@@ -81,15 +69,13 @@ public class Robot extends TimedRobot {
 
   //Current Sensing
   PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
-  //Initialization of NetworkTable for Limelight
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
-  public Robot() {// class constructor.
+  public Robot() { 
   }
   
   @Override
   public void robotInit() {
-    //Inverts the motors
     frontMotor.setInverted(true);
     flywheelRightFront.setInverted(true);
     flywheelRightBack.setInverted(true);
@@ -110,8 +96,8 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void teleopPeriodic() {
-    // Check for sensor calibration
     if (ahrs.isCalibrating()) {
+      //Thread.yield();
       SmartDashboard.putNumber("Is Calibrating", 1 );
     }
     if(ahrs.isConnected()){

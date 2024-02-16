@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
   GenericEntry ledPWM = tab.add("Max Speed", 1).getEntry();
   double idleLED = -0.21;
   double speakerLED = -0.97;
-  double ampLED = 0; 
+  double ampLED = -0.92; 
   double stickX2;
   double stickY1;
   double stickY2;
@@ -125,8 +125,8 @@ public class Robot extends TimedRobot {
     drive = Util.clamp(-Util.inputCurve(stickY1, 0.2));//y-axis 2
 
     //LED
-    double led = ledPWM.getDouble(1.0);
-    blinkin.set(led);
+    //double led = ledPWM.getDouble(1.0);
+    //blinkin.set(led);
     //Drive
     motorLeft.set(drive+turn);
     motorRight.set(-drive+turn);
@@ -143,23 +143,26 @@ public class Robot extends TimedRobot {
       flywheelRightBack.set(0.20);
       flywheelLeftFront.set(0.1);
       flywheelRightFront.set(0.1);
+      blinkin.set(ampLED);
     }
     else if(buttonA){ //Speaker Scoring
       flywheelLeftBack.set(1);
       flywheelRightBack.set(1);
       flywheelLeftFront.set(1);
       flywheelRightFront.set(1);
+      blinkin.set(speakerLED);
     }else if(buttonG){//Intake through shooter
-      flywheelLeftBack.set(-0.4);
-      flywheelRightBack.set(-0.4);
-      flywheelLeftFront.set(-0.4);
-      flywheelRightFront.set(-0.4);
+      flywheelLeftBack.set(-0.15);
+      flywheelRightBack.set(-0.15);
+      flywheelLeftFront.set(-0.15);
+      flywheelRightFront.set(-0.15);
     }else{
       frontMotor.set(0);
       flywheelLeftBack.set(0);
       flywheelRightBack.set(0);
       flywheelLeftFront.set(0);
       flywheelRightFront.set(0);
+      blinkin.set(idleLED);
     } 
     
     //Telemetry

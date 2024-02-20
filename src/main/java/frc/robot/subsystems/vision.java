@@ -6,6 +6,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.SpinStop;
 
-public class spinner extends SubsystemBase {
+public class vision extends SubsystemBase {
 
 }

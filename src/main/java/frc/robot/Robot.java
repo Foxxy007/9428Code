@@ -8,11 +8,11 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+//import com.revrobotics.RelativeEncoder;
 import com.revrobotics.Rev2mDistanceSensor;
-import com.revrobotics.SparkRelativeEncoder;
+//import com.revrobotics.SparkRelativeEncoder;
 
-import edu.wpi.first.math.controller.RamseteController;
+//import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -25,11 +25,11 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
+//import edu.wpi.first.wpilibj.util.Color;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.I2C;
+//import edu.wpi.first.wpilibj.I2C;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 public class Robot extends TimedRobot {
   private Rev2mDistanceSensor distance; 

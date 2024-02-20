@@ -8,8 +8,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ColorSensorV3;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.SparkRelativeEncoder;
 
 import edu.wpi.first.math.controller.RamseteController;
@@ -30,10 +30,9 @@ import edu.wpi.first.wpilibj.util.Color;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.I2C;
-
+import com.revrobotics.Rev2mDistanceSensor.Port;
 public class Robot extends TimedRobot {
-  I2C.Port i2cPort = I2C.Port.kOnboard;
-  ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
+  private Rev2mDistanceSensor distance; 
   AHRS ahrs;
   // Drive motors
   TalonFX motorLeft = new TalonFX(2);
@@ -61,6 +60,7 @@ public class Robot extends TimedRobot {
   ShuffleboardTab tab = Shuffleboard.getTab("LED");
   GenericEntry ledPWM = tab.add("Max Speed", 1).getEntry();
   double idleLED = -0.21;
+  double ringLED = 0.07; //0.33
   double speakerLED = -0.97;
   double ampLED = -0.92; 
   double stickX2;
@@ -81,6 +81,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotInit() {
+
     frontMotor.setInverted(true);
     flywheelRightFront.setInverted(true);
     flywheelRightBack.setInverted(true);
@@ -91,7 +92,7 @@ public class Robot extends TimedRobot {
     motorRightFollower.setControl(new Follower(motorRight.getDeviceID(), false));
 
     ahrs = new AHRS(SPI.Port.kMXP);
-    
+    distance = new Rev2mDistanceSensor(Port.kOnboard);
   }
   @Override
   public void autonomousPeriodic() {
@@ -100,10 +101,17 @@ public class Robot extends TimedRobot {
     
   }
   @Override
+  public void teleopInit() {
+    distance.setAutomaticMode(true);
+    distance = new Rev2mDistanceSensor(Port.kOnboard);
+    ahrs = new AHRS(SPI.Port.kMXP);
+
+  }
   public void teleopPeriodic() {
-    Color detectedColor = colorSensor.getColor();
-    double IR = colorSensor.getIR();
-    int proximity = colorSensor.getProximity();
+    //Distance Sensor for internal ring detection
+    if(distance.getRange() == -1) {
+      //distance = new Rev2mDistanceSensor(Port.kOnboard);
+    }
     if (ahrs.isCalibrating()) {
       //Thread.yield();
       SmartDashboard.putNumber("Is Calibrating", 1 );
@@ -121,34 +129,56 @@ public class Robot extends TimedRobot {
     double rawArea = ta.getDouble(0.0);
 
     //Controller Mapping
-    stickX2 = Controller1.getRawAxis(3);
+    stickX2 = Controller1.getRawAxis(0);
     stickY1 = Controller1.getRawAxis(1);
-    stickY2 = Controller1.getRawAxis(4);
-    buttonA = Controller1.getRawButton(3);
-    buttonD = Controller1.getRawButton(4);
+    //stickY2 = Controller1.getRawAxis(4);
+    buttonA = Controller1.getRawButton(4);
+    buttonD = Controller1.getRawButton(3);
     buttonG = Controller1.getRawButton(5);
 
     //Robot actions
-    turn = Util.clamp(Util.inputCurve(stickX2,0.2));//x-axis 1
-    drive = Util.clamp(-Util.inputCurve(stickY1, 0.2));//y-axis 2
+    turn = Util.clamp(Util.inputCurve(stickX2,1));//x-axis 1
+    drive = Util.clamp(Util.inputCurve(stickY1, 1));//y-axis 2
 
     //LED
     //double led = ledPWM.getDouble(1.0);
     //blinkin.set(led);
-    //Drive
+    //Drive Reverse
+    if(Controller1.getRawButton(13)){
     motorLeft.set(drive+turn);
     motorRight.set(-drive+turn);
+    }
+    else{
+      motorLeft.set(-drive+turn);
+      motorRight.set(drive+turn);
+    }
+    
     
 
     //Flywheel and Intake
-    intakeBelt.set(stickY2);
+    /* intakeBelt.set(stickY2);
     intakeTopRoller.set(stickY2);
-    intakeBottomRoller.set(stickY2);
-
+    intakeBottomRoller.set(stickY2); */
+    if(Controller1.getRawButton(8)){
+      intakeBelt.set(1);
+      intakeTopRoller.set(1);
+      intakeBottomRoller.set(1);
+    }
+    else if(Controller1.getRawButton(7)){
+      intakeBelt.set(-1);
+      intakeTopRoller.set(-1);
+      intakeBottomRoller.set(-1);
+    }
+    else{
+      intakeBelt.set(0);
+      intakeTopRoller.set(0);
+      intakeBottomRoller.set(0);
+    }
+ 
     if(buttonD){ //AmpScoring
       frontMotor.set(0.1);
-      flywheelLeftBack.set(0.20);
-      flywheelRightBack.set(0.20);
+      flywheelLeftBack.set(0.25);
+      flywheelRightBack.set(0.25);
       flywheelLeftFront.set(0.1);
       flywheelRightFront.set(0.1);
       blinkin.set(ampLED);
@@ -164,6 +194,13 @@ public class Robot extends TimedRobot {
       flywheelRightBack.set(-0.15);
       flywheelLeftFront.set(-0.15);
       flywheelRightFront.set(-0.15);
+    }else if(distance.getRange() < 14 && distance.getRange() != -1){
+      frontMotor.set(0);
+      flywheelLeftBack.set(0);
+      flywheelRightBack.set(0);
+      flywheelLeftFront.set(0);
+      flywheelRightFront.set(0);
+      blinkin.set(ringLED);
     }else{
       frontMotor.set(0);
       flywheelLeftBack.set(0);
@@ -171,7 +208,8 @@ public class Robot extends TimedRobot {
       flywheelLeftFront.set(0);
       flywheelRightFront.set(0);
       blinkin.set(idleLED);
-    } 
+    }  
+    
     
     //Telemetry
     SmartDashboard.putNumber("Limelight X", rawX);
@@ -181,14 +219,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Test Angle",ahrs.getYaw());
     //SmartDashboard.putNumber("Front Flywheel Speed",leftSlider);
     //SmartDashboard.putNumber("Rear Flywheel Speed",rightSlider);
-
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("IR", IR);
-    SmartDashboard.putNumber("Proximity", proximity);
-
-
+    SmartDashboard.putNumber("Ring Range", distance.getRange());
+    SmartDashboard.putNumber("Timestamp Onboard", distance.getTimestamp());
+    
   }
 
   }

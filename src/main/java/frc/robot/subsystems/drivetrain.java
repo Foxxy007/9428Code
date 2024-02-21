@@ -4,8 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,17 +17,26 @@ import frc.robot.commands.DrivewithJoysticks;
 
 public class drivetrain extends SubsystemBase {
   /** Creates a new drivetrain. */
-  VictorSP leftmotor;
-  VictorSP rightmotor;
+  TalonFX leftMotor;
+  TalonFX rightMotor;  
+  TalonFX leftFollowerMotor;
+  TalonFX rightFollowerMotor;
+
   DifferentialDrive drive;
   double throttle;
   double twist;
 
   
   public drivetrain() {
-    leftmotor = new VictorSP(Constants.leftDriveMotor);
-    rightmotor = new VictorSP(Constants.rightDriveMotor);
-    drive = new DifferentialDrive(leftmotor, rightmotor);
+    leftMotor = new TalonFX(2);
+    rightMotor = new TalonFX(1);
+    leftFollowerMotor = new TalonFX(3);
+    rightFollowerMotor = new TalonFX(4);
+    
+    leftFollowerMotor.setControl(new Follower(leftMotor.getDeviceID(), false));
+    rightFollowerMotor.setControl(new Follower(rightMotor.getDeviceID(), false));
+
+    drive = new DifferentialDrive(leftMotor, rightMotor);
   }
 
   @Override

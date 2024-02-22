@@ -22,9 +22,9 @@ public class drivetrain extends SubsystemBase {
   TalonFX leftFollowerMotor;
   TalonFX rightFollowerMotor;
 
-  DifferentialDrive drive;
-  double throttle;
-  double twist;
+  DifferentialDrive Drive;
+  double drive;
+  double turn;
 
   
   public drivetrain() {
@@ -36,7 +36,7 @@ public class drivetrain extends SubsystemBase {
     leftFollowerMotor.setControl(new Follower(leftMotor.getDeviceID(), false));
     rightFollowerMotor.setControl(new Follower(rightMotor.getDeviceID(), false));
 
-    drive = new DifferentialDrive(leftMotor, rightMotor);
+    Drive = new DifferentialDrive(leftMotor, rightMotor);
   }
 
   @Override
@@ -46,8 +46,8 @@ public class drivetrain extends SubsystemBase {
   }
 
   public void arcadedrive() {
-    throttle = RobotContainer.m_controller.getRawAxis(0);
-    twist = RobotContainer.m_controller.getRawAxis(1);
-    drive.arcadeDrive(throttle, twist);
+    drive = RobotContainer.m_controller.getRawAxis(0);
+    turn = RobotContainer.m_controller.getRawAxis(1);
+    Drive.arcadeDrive(drive, turn);
   }
 }

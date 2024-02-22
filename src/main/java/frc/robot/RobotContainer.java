@@ -34,8 +34,8 @@ public class RobotContainer {
   public RobotContainer() {
     //Sets the default state of the drivetrain to be the controller axis'
     double turn = Util.clamp(Util.inputCurve(m_controller.getRawAxis(3),0.2));//x-axis 1
-    double drive = Util.clamp(Util.inputCurve(-m_controller.getRawAxis(4), 0.2));//y-axis 2
-    m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive, turn, drive));
+    double drive = Util.clamp(Util.inputCurve(m_controller.getRawAxis(4), 0.2));//y-axis 2
+    m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive, drive, turn));
 
     boolean buttonD = m_controller.getRawButton(4);
     m_spinner.setDefaultCommand(new stopSpin(m_spinner));

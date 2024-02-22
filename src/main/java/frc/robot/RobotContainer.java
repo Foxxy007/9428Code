@@ -28,6 +28,7 @@ public class RobotContainer {
   public static final GenericHID m_controller = new GenericHID(0);
   private static final spinner m_spinner = new spinner();
   private static final drivetrain m_drive = new drivetrain();
+  public static boolean buttonD = m_controller.getRawButton(4);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -35,6 +36,9 @@ public class RobotContainer {
     double turn = Util.clamp(Util.inputCurve(m_controller.getRawAxis(3),0.2));//x-axis 1
     double drive = Util.clamp(Util.inputCurve(-m_controller.getRawAxis(4), 0.2));//y-axis 2
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive, turn, drive));
+
+    boolean buttonD = m_controller.getRawButton(4);
+    m_spinner.setDefaultCommand(new stopSpin(m_spinner));
     configureButtonBindings();
   }
 
@@ -45,15 +49,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    boolean buttonD = m_controller.getRawButton(4);
-
-    if (buttonD){
+    // TODO Undestand what this does.
+    while(buttonD){
       new fullSpin(m_spinner);
-    }else{
-      new stopSpin(m_spinner);
     }
-
   }
 
 

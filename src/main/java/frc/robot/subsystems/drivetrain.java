@@ -32,10 +32,10 @@ public class drivetrain extends SubsystemBase {
     rightMotor = new TalonFX(1);
     leftFollowerMotor = new TalonFX(3);
     rightFollowerMotor = new TalonFX(4);
-    
     leftFollowerMotor.setControl(new Follower(leftMotor.getDeviceID(), false));
     rightFollowerMotor.setControl(new Follower(rightMotor.getDeviceID(), false));
-
+    leftMotor.setInverted(true);
+    rightMotor.setInverted(false);
     Drive = new DifferentialDrive(leftMotor, rightMotor);
   }
 
@@ -46,8 +46,8 @@ public class drivetrain extends SubsystemBase {
   }
 
   public void arcadedrive() {
-    drive = RobotContainer.m_controller.getRawAxis(0);
-    turn = RobotContainer.m_controller.getRawAxis(1);
+    drive = RobotContainer.m_controller.getRawAxis(4);
+    turn = RobotContainer.m_controller.getRawAxis(0);
     Drive.arcadeDrive(drive, turn);
   }
 }

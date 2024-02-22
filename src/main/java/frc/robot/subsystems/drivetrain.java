@@ -46,8 +46,8 @@ public class drivetrain extends SubsystemBase {
   }
 
   public void arcadedrive() {
-    throttle = RobotContainer.m_joystick.getRawAxis(0);
-    twist = RobotContainer.m_joystick.getRawAxis(1);
+    throttle = RobotContainer.m_controller.getRawAxis(0);
+    twist = RobotContainer.m_controller.getRawAxis(1);
     drive.arcadeDrive(throttle, twist);
   }
 }

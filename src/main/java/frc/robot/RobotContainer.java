@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DrivewithJoysticks;
-import frc.robot.commands.SpinFaster;
-import frc.robot.commands.SpinSlower;
+import frc.robot.commands.fullSpin;
+import frc.robot.commands.stopSpin;
 import frc.robot.subsystems.drivetrain;
 import frc.robot.subsystems.spinner;
 
@@ -25,14 +25,16 @@ import frc.robot.subsystems.spinner;
  */
 public class RobotContainer {
   //Declare objects that will be used?
-  public static final Joystick m_joystick = new Joystick(0);
+  public static final GenericHID m_controller = new GenericHID(0);
   private static final spinner m_spinner = new spinner();
   private static final drivetrain m_drive = new drivetrain();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //Sets the default state of the drivetrain to be the controller axis'
-    m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive, m_joystick.getRawAxis(0), m_joystick.getRawAxis(1)));
+    double turn = Util.clamp(Util.inputCurve(m_controller.getRawAxis(3),0.2));//x-axis 1
+    double drive = Util.clamp(Util.inputCurve(-m_controller.getRawAxis(4), 0.2));//y-axis 2
+    m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive, turn, drive));
     configureButtonBindings();
   }
 
@@ -43,11 +45,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton slower = new JoystickButton(m_joystick, 1);
-    JoystickButton faster = new JoystickButton(m_joystick, 2);
 
-    slower.whileTrue(new SpinSlower(m_spinner));
-    faster.whileTrue(new SpinFaster(m_spinner));
+    boolean buttonD = m_controller.getRawButton(4);
+
+    if (buttonD){
+      new fullSpin(m_spinner);
+    }else{
+      new stopSpin(m_spinner);
+    }
 
   }
 

@@ -11,6 +11,7 @@ import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DrivewithJoysticks;
 import frc.robot.commands.fullSpin;
 import frc.robot.commands.stopSpin;
@@ -37,8 +38,7 @@ public class RobotContainer {
     double drive = Util.clamp(Util.inputCurve(m_controller.getRawAxis(4), 0.2));//y-axis 2
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive, drive, turn));
 
-    boolean buttonD = m_controller.getRawButton(4);
-    m_spinner.setDefaultCommand(new stopSpin(m_spinner));
+
     configureButtonBindings();
   }
 
@@ -50,9 +50,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // TODO Undestand what this does.
-    while(buttonD){
-      new fullSpin(m_spinner);
-    }
+    Trigger buttonD = new Trigger();
+    m_spinner.setDefaultCommand(new stopSpin(m_spinner));
   }
 
 

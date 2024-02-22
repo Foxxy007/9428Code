@@ -21,6 +21,6 @@ public final class Constants {
     public static int spinnerMotor = 2;
     public static double spinnerSpeed = 0.1;
 
-    public static int armMotor = 3;
+    public static int buttonDPort = 4;
 
 }

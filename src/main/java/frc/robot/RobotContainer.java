@@ -7,6 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -29,7 +32,8 @@ public class RobotContainer {
   public static final GenericHID m_controller = new GenericHID(0);
   private static final spinner m_spinner = new spinner();
   private static final drivetrain m_drive = new drivetrain();
-  public static boolean buttonD = m_controller.getRawButton(4);
+
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -50,7 +54,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // TODO Undestand what this does.
-    Trigger buttonD = new Trigger();
+    BooleanSupplier supplier = () -> m_controller.getRawButton(4);
+    Trigger ButtonD = new Trigger(supplier);
     m_spinner.setDefaultCommand(new stopSpin(m_spinner));
   }
 

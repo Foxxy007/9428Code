@@ -18,7 +18,7 @@ public final class Constants {
     public static int mainRight = 1;
     public static int followerRight = 2;
 
-    public static int spinnerMotor = 2;
+    public static int spinnerMotor = 10;
     public static double spinnerSpeed = 0.1;
 
     public static int buttonDPort = 4;

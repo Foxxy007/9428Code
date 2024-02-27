@@ -41,7 +41,7 @@ public class RobotContainer {
     double drive = Util.clamp(Util.inputCurve(m_controller.getRawAxis(4), 0.2));//y-axis 2
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive));
     m_spinner.setDefaultCommand(new Spin(m_spinner));
-
+    
 
     configureButtonBindings();
   }

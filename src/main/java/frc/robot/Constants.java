@@ -21,6 +21,18 @@ public final class Constants {
     public static int spinnerMotor = 10;
     public static double spinnerSpeed = 0.1;
 
+    public static int bottomIntakeRollerMotor = 2;
+    public static int intakeBeltMotor = 3;
+    public static int topIntakeRollerMotor = 4;
+
+    public static int bottomLeftFlywheelMotor = 7;
+    public static int topRightFlywheelMotor = 5;
+    public static int topLeftFlywheelMotor = 6;
+    public static int bottomRightFlywheelMotor = 8;
+
+    public static int telescopicArmLeftMotor = 1;
+    public static int telescopicArmRightMotor = 9;
+
     public static int buttonDPort = 4;
 
 }

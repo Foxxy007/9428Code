@@ -26,7 +26,7 @@ public class Spin extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_spinner.spin();
+    m_spinner.spin(speed);
   }
 
   // Called once the command ends or is interrupted.

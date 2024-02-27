@@ -16,8 +16,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DrivewithJoysticks;
-import frc.robot.commands.fullSpin;
-import frc.robot.commands.stopSpin;
+import frc.robot.commands.Spin;
 import frc.robot.subsystems.drivetrain;
 import frc.robot.subsystems.spinner;
 
@@ -41,6 +40,7 @@ public class RobotContainer {
     double turn = Util.clamp(Util.inputCurve(m_controller.getRawAxis(3),0.2));//x-axis 1
     double drive = Util.clamp(Util.inputCurve(m_controller.getRawAxis(4), 0.2));//y-axis 2
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive, drive, turn));
+    m_spinner.setDefaultCommand(new Spin(m_spinner, (m_controller.getRawButton(4))?Constants.spinnerSpeed:0));
 
 
     configureButtonBindings();
@@ -54,9 +54,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // TODO Undestand what this does.
-    BooleanSupplier supplier = () -> m_controller.getRawButton(4);
-    Trigger ButtonD = new Trigger(supplier);
-    m_spinner.setDefaultCommand(new stopSpin(m_spinner));
   }
 
 

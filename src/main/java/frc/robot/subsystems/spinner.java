@@ -19,7 +19,7 @@ public class spinner extends SubsystemBase {
   public spinner() {
     m_spin = new CANSparkMax(Constants.spinnerMotor, MotorType.kBrushless);
     m_spin.setInverted(true);
-    m_spin.set(0.1);
+    m_spin.set(Constants.spinnerSpeed);
     setDefaultCommand(new Spin(this));
   }
 

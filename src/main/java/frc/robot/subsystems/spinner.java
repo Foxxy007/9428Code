@@ -16,7 +16,7 @@ import frc.robot.commands.Spin;
 public class spinner extends SubsystemBase {
   /** Creates a new spinner. */
   private final CANSparkMax m_spin;
-  private double current_speed = 0;
+  private double current_speed;
   public spinner() {
     m_spin = new CANSparkMax(Constants.spinnerMotor, MotorType.kBrushless);
     m_spin.setInverted(true);
@@ -26,11 +26,12 @@ public class spinner extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    current_speed=(RobotContainer.m_controller.getRawButton(4)?Constants.spinnerSpeed:0);
     m_spin.set(current_speed);
     SmartDashboard.putString("spinner", (m_spin.get()>0)?"ON":"OFF");
   }
 
   public void spin() {
-    current_speed=(RobotContainer.m_controller.getRawButton(4)?Constants.spinnerSpeed:0);
+    
   }
 }

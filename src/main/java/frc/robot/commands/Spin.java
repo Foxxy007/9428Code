@@ -12,10 +12,9 @@ public class Spin extends Command {
   spinner m_spinner; 
   double speed;
   /** Creates a new SpinFaster. */
-  public Spin(spinner param_spin, double param_speed) {
+  public Spin(spinner param_spin) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_spinner = param_spin;
-    speed = param_speed;
     addRequirements(m_spinner);
   }
 
@@ -26,7 +25,7 @@ public class Spin extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_spinner.spin(speed);
+    m_spinner.spin();
   }
 
   // Called once the command ends or is interrupted.

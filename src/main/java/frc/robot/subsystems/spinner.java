@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Spin;
 
 public class spinner extends SubsystemBase {
@@ -19,7 +20,7 @@ public class spinner extends SubsystemBase {
   public spinner() {
     m_spin = new CANSparkMax(Constants.spinnerMotor, MotorType.kBrushless);
     m_spin.setInverted(true);
-    setDefaultCommand(new Spin(this, Constants.spinnerSpeed));
+    setDefaultCommand(new Spin(this));
   }
 
   @Override
@@ -29,7 +30,7 @@ public class spinner extends SubsystemBase {
     SmartDashboard.putString("spinner", (m_spin.get()>0)?"ON":"OFF");
   }
 
-  public void spin(double Speed) {
-    current_speed=Speed;
+  public void spin() {
+    current_speed=(RobotContainer.m_controller.getRawButton(4)?Constants.spinnerSpeed:0);
   }
 }

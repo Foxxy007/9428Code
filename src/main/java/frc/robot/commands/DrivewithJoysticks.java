@@ -9,14 +9,10 @@ import frc.robot.subsystems.drivetrain;
 
 public class DrivewithJoysticks extends Command {
   drivetrain m_drive;
-  double throttle;
-  double twist;
   /** Creates a new DrivewithJoysticks. */
-  public DrivewithJoysticks(drivetrain drive, double param_throttle, double param_twist) {
+  public DrivewithJoysticks(drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;
-    throttle = param_throttle;
-    twist = param_twist;
     addRequirements(m_drive);
   }
 

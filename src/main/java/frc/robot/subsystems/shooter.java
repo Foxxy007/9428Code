@@ -61,8 +61,7 @@ public class shooter extends SubsystemBase {
         m_FLflywheel.set(0.1);
         m_FRflywheel.set(0.1);
         m_LED.set(Constants.ampLED);
-      }
-      else if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
         m_BLflywheel.set(1);
         m_BRflywheel.set(1);
         m_FLflywheel.set(1);
@@ -95,7 +94,39 @@ public class shooter extends SubsystemBase {
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
-      
+      if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){ //AmpScoring
+        m_spin.set(0.1);
+        m_BLflywheel.set(0.25);
+        m_BRflywheel.set(0.25);
+        m_FLflywheel.set(0.1);
+        m_FRflywheel.set(0.1);
+        m_LED.set(Constants.ampLED);
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
+        m_BLflywheel.set(1);
+        m_BRflywheel.set(1);
+        m_FLflywheel.set(1);
+        m_FRflywheel.set(1);
+        m_LED.set(Constants.speakerLED);
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
+        m_BLflywheel.set(-0.15);
+        m_BRflywheel.set(-0.15);
+        m_FLflywheel.set(-0.15);
+        m_FRflywheel.set(-0.15);
+      }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
+        m_spin.set(0);
+        m_BLflywheel.set(0);
+        m_BRflywheel.set(0);
+        m_FLflywheel.set(0);
+        m_FRflywheel.set(0);
+        m_LED.set(Constants.ringLED);
+      }else{
+        m_spin.set(0);
+        m_BLflywheel.set(0);
+        m_BRflywheel.set(0);
+        m_FLflywheel.set(0);
+        m_FRflywheel.set(0);
+        m_LED.set(Constants.idleLED);
+      }  
     }
   }
   public void shootIn(){
@@ -103,7 +134,39 @@ public class shooter extends SubsystemBase {
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
-
+      if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){ //AmpScoring
+        m_spin.set(0.1);
+        m_BLflywheel.set(0.25);
+        m_BRflywheel.set(0.25);
+        m_FLflywheel.set(0.1);
+        m_FRflywheel.set(0.1);
+        m_LED.set(Constants.ampLED);
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
+        m_BLflywheel.set(1);
+        m_BRflywheel.set(1);
+        m_FLflywheel.set(1);
+        m_FRflywheel.set(1);
+        m_LED.set(Constants.speakerLED);
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
+        m_BLflywheel.set(-0.15);
+        m_BRflywheel.set(-0.15);
+        m_FLflywheel.set(-0.15);
+        m_FRflywheel.set(-0.15);
+      }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
+        m_spin.set(0);
+        m_BLflywheel.set(0);
+        m_BRflywheel.set(0);
+        m_FLflywheel.set(0);
+        m_FRflywheel.set(0);
+        m_LED.set(Constants.ringLED);
+      }else{
+        m_spin.set(0);
+        m_BLflywheel.set(0);
+        m_BRflywheel.set(0);
+        m_FLflywheel.set(0);
+        m_FRflywheel.set(0);
+        m_LED.set(Constants.idleLED);
+      }  
     }
   }
   @Override

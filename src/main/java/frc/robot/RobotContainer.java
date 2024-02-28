@@ -5,19 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 
-import java.util.function.BooleanSupplier;
-
-import edu.wpi.first.util.sendable.SendableRegistry;
+// import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DrivewithJoysticks;
 import frc.robot.commands.Spin;
+import frc.robot.commands.Intake;
 import frc.robot.subsystems.drivetrain;
+import frc.robot.subsystems.intake;
 import frc.robot.subsystems.spinner;
 
 /**
@@ -31,17 +27,16 @@ public class RobotContainer {
   public static final GenericHID m_controller = new GenericHID(0);
   private static final spinner m_spinner = new spinner();
   private static final drivetrain m_drive = new drivetrain();
+  private static final intake m_intake = new intake();
 
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //Sets the default state of the drivetrain to be the controller axis'
-    double turn = Util.clamp(Util.inputCurve(m_controller.getRawAxis(3),0.2));//x-axis 1
-    double drive = Util.clamp(Util.inputCurve(m_controller.getRawAxis(4), 0.2));//y-axis 2
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive));
     m_spinner.setDefaultCommand(new Spin(m_spinner));
-    
+    m_intake.setDefaultCommand(new Intake(m_intake));
 
     configureButtonBindings();
   }

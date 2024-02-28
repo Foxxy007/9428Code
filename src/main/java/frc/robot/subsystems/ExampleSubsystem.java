@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 public class ExampleSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
@@ -34,7 +35,13 @@ public class ExampleSubsystem extends SubsystemBase {
     // Query some boolean state, such as a digital sensor.
     return false;
   }
+  public void action(){
+    if(Robot.GameStage.equals("auto")){
 
+    }else if(Robot.GameStage.equals("teleop")){
+      
+    }
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

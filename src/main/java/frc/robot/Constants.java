@@ -21,9 +21,9 @@ public final class Constants {
     public static int spinnerMotor = 10;
     public static double spinnerSpeed = 0.1;
 
-    public static int bottomIntakeRollerMotor = 2;
+    public static int bottomIntakeRollerMotor = 4;
     public static int intakeBeltMotor = 3;
-    public static int topIntakeRollerMotor = 4;
+    public static int topIntakeRollerMotor = 2;
 
     public static int bottomLeftFlywheelMotor = 7;
     public static int topRightFlywheelMotor = 5;
@@ -34,5 +34,12 @@ public final class Constants {
     public static int telescopicArmRightMotor = 9;
 
     public static int buttonDPort = 4;
+    public static int buttonAPort = 3;
+    public static int buttonGPort = 5;
+
+    public static double idleLED = -0.21;
+    public static double ringLED = 0.07;
+    public static double speakerLED = -0.97;
+    public static double ampLED = -0.92;
 
 }

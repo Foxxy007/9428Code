@@ -8,15 +8,15 @@ import frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class shootSpeaker extends Command {
+public class reloadNote extends Command {
   private final shooter m_shooter;
 
   /**
-   * Creates a new shootSpeaker.
+   * Creates a new reloadNote.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public shootSpeaker(shooter subsystem) {
+  public reloadNote(shooter subsystem) {
     m_shooter = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -29,7 +29,7 @@ public class shootSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.shootSpeaker();
+    m_shooter.reloadNote();
   }
 
   // Called once the command ends or is interrupted.

@@ -25,8 +25,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static String GameStage = "";
-  private CANSparkMax m_hook;
-  private RelativeEncoder m_hookEncoder;
+
   /**
    * 
    * This function is run when the robot is first started up and should be used for any
@@ -96,14 +95,12 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-      m_hook = new CANSparkMax(9, MotorType.kBrushless); 
-      m_hookEncoder = m_hook.getEncoder();
+ 
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-      SmartDashboard.putNumber("Encoder Position", m_hookEncoder.getPosition());
 
   }
   @Override

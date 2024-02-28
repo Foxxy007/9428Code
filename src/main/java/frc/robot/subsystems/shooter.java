@@ -9,7 +9,7 @@ import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -47,6 +47,10 @@ public class shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("BLflywheel",m_BLflywheel.get());
+    SmartDashboard.putNumber("BRflywheel",m_BRflywheel.get());
+    SmartDashboard.putNumber("FLflywheel",m_FLflywheel.get());
+    SmartDashboard.putNumber("FRflywheel",m_FRflywheel.get());
   }
 
   public void shootSpeaker(){
@@ -54,24 +58,12 @@ public class shooter extends SubsystemBase {
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
-      if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){ //AmpScoring
-        m_spin.set(0.1);
-        m_BLflywheel.set(0.25);
-        m_BRflywheel.set(0.25);
-        m_FLflywheel.set(0.1);
-        m_FRflywheel.set(0.1);
-        m_LED.set(Constants.ampLED);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
+      if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
         m_BLflywheel.set(1);
         m_BRflywheel.set(1);
         m_FLflywheel.set(1);
         m_FRflywheel.set(1);
         m_LED.set(Constants.speakerLED);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
-        m_BLflywheel.set(-0.15);
-        m_BRflywheel.set(-0.15);
-        m_FLflywheel.set(-0.15);
-        m_FRflywheel.set(-0.15);
       }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
         m_spin.set(0);
         m_BLflywheel.set(0);
@@ -101,17 +93,6 @@ public class shooter extends SubsystemBase {
         m_FLflywheel.set(0.1);
         m_FRflywheel.set(0.1);
         m_LED.set(Constants.ampLED);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
-        m_BLflywheel.set(1);
-        m_BRflywheel.set(1);
-        m_FLflywheel.set(1);
-        m_FRflywheel.set(1);
-        m_LED.set(Constants.speakerLED);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
-        m_BLflywheel.set(-0.15);
-        m_BRflywheel.set(-0.15);
-        m_FLflywheel.set(-0.15);
-        m_FRflywheel.set(-0.15);
       }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
         m_spin.set(0);
         m_BLflywheel.set(0);
@@ -129,25 +110,12 @@ public class shooter extends SubsystemBase {
       }  
     }
   }
-  public void shootIn(){
+  public void reloadNote(){
     // TODO: reverse flywheels at 0.2 power
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
-      if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){ //AmpScoring
-        m_spin.set(0.1);
-        m_BLflywheel.set(0.25);
-        m_BRflywheel.set(0.25);
-        m_FLflywheel.set(0.1);
-        m_FRflywheel.set(0.1);
-        m_LED.set(Constants.ampLED);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
-        m_BLflywheel.set(1);
-        m_BRflywheel.set(1);
-        m_FLflywheel.set(1);
-        m_FRflywheel.set(1);
-        m_LED.set(Constants.speakerLED);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
+      if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
         m_BLflywheel.set(-0.15);
         m_BRflywheel.set(-0.15);
         m_FLflywheel.set(-0.15);

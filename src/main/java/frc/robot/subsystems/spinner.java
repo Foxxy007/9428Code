@@ -27,7 +27,7 @@ public class spinner extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("spinner", m_spin.get());
+    SmartDashboard.putNumber("Front Spinner", m_spin.get());
   }
 
   public void spin() {

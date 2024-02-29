@@ -32,16 +32,18 @@ public class shooter extends SubsystemBase {
     m_LED = new Spark(0);
     m_spin = new CANSparkMax(Constants.spinnerMotor,MotorType.kBrushless);
 
-    m_BLflywheel = new CANSparkMax(Constants.bottomLeftFlywheelMotor,MotorType.kBrushless);
-    m_FRflywheel = new CANSparkMax(Constants.topRightFlywheelMotor,MotorType.kBrushless);
-    m_FLflywheel = new CANSparkMax(Constants.topLeftFlywheelMotor,MotorType.kBrushless);
-    m_BRflywheel = new CANSparkMax(Constants.bottomRightFlywheelMotor,MotorType.kBrushless);
+    m_BLflywheel = new CANSparkMax(Constants.backLeftFlywheelMotor,MotorType.kBrushless);
+    m_FRflywheel = new CANSparkMax(Constants.frontRightFlywheelMotor,MotorType.kBrushless);
+    m_FLflywheel = new CANSparkMax(Constants.frontLeftFlywheelMotor,MotorType.kBrushless);
+    m_BRflywheel = new CANSparkMax(Constants.backRightFlywheelMotor,MotorType.kBrushless);
 
 
     m_spin.setInverted(true);
 
+    m_BLflywheel.setInverted(false);
+    m_FRflywheel.setInverted(true);
+    m_FLflywheel.setInverted(false);
     m_BRflywheel.setInverted(true);
-    m_BLflywheel.setInverted(true);
   }
 
   @Override
@@ -51,19 +53,35 @@ public class shooter extends SubsystemBase {
     SmartDashboard.putNumber("BRflywheel",m_BRflywheel.get());
     SmartDashboard.putNumber("FLflywheel",m_FLflywheel.get());
     SmartDashboard.putNumber("FRflywheel",m_FRflywheel.get());
+    SmartDashboard.putNumber("Front Spinner", m_spin.get());
+    
   }
 
-  public void shootSpeaker(){
+  public void shoot(){
     // TODO: all flywheels shooting at max speed
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
       if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
+        m_spin.set(0);
         m_BLflywheel.set(1);
         m_BRflywheel.set(1);
         m_FLflywheel.set(1);
         m_FRflywheel.set(1);
         m_LED.set(Constants.speakerLED);
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
+        m_spin.set(-0.2);
+        m_BLflywheel.set(-0.15);
+        m_BRflywheel.set(-0.15);
+        m_FLflywheel.set(-0.15);
+        m_FRflywheel.set(-0.15);
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){ //AmpScoring
+        m_spin.set(0.1);
+        m_BLflywheel.set(0.25);
+        m_BRflywheel.set(0.25);
+        m_FLflywheel.set(0.1);
+        m_FRflywheel.set(0.1);
+        m_LED.set(Constants.ampLED);
       }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
         m_spin.set(0);
         m_BLflywheel.set(0);

@@ -25,13 +25,13 @@ public final class Constants {
     public static int intakeBeltMotor = 3;
     public static int topIntakeRollerMotor = 2;
 
-    public static int bottomLeftFlywheelMotor = 7;
-    public static int topRightFlywheelMotor = 5;
-    public static int topLeftFlywheelMotor = 6;
-    public static int bottomRightFlywheelMotor = 8;
+    public static int backLeftFlywheelMotor = 7;
+    public static int frontRightFlywheelMotor = 5;
+    public static int frontLeftFlywheelMotor = 6;
+    public static int backRightFlywheelMotor = 8;
 
-    public static int telescopicArmLeftMotor = 1;
-    public static int telescopicArmRightMotor = 9;
+    public static int telescopicArmLeftMotor = 9;
+    public static int telescopicArmRightMotor = 1;
 
     public static int buttonDPort = 4;
     public static int buttonAPort = 3;
@@ -42,7 +42,7 @@ public final class Constants {
     public static double speakerLED = -0.97;
     public static double ampLED = -0.92;
 
-    //Hook PID
+    //Hook's Proportion-Integral-Derivative(PID) Constants
     public static double kP = 0.1; 
     public static double kI = 1e-4;
     public static double kD = 1; 

@@ -20,7 +20,7 @@ public class hook extends SubsystemBase {
   private RelativeEncoder m_LhookEncoder;
   private SparkPIDController m_LhookPID;
   public hook() {
-    m_Lhook = new CANSparkMax(9, MotorType.kBrushless); 
+    m_Lhook = new CANSparkMax(Constants.telescopicArmLeftMotor, MotorType.kBrushless); 
     m_LhookEncoder = m_Lhook.getEncoder(); 
     //PID for closed loop control
     m_LhookPID = m_Lhook.getPIDController();
@@ -31,14 +31,6 @@ public class hook extends SubsystemBase {
     m_LhookPID.setFF(Constants.kFF);
     m_LhookPID.setOutputRange(Constants.kMinOutput, Constants.kMaxOutput);   
   }
-
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-
-
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *  
@@ -48,11 +40,11 @@ public class hook extends SubsystemBase {
     // Query some boolean state, such as a digital sensor.
     return false;
   }
-  public void action(){
+  public void goUp(){
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
-
+      
     }
   }
   @Override

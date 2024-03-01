@@ -71,6 +71,7 @@ public class hook extends SubsystemBase {
   public void periodic() {
       SmartDashboard.putNumber("LhookEncoder Position", m_LhookEncoder.getPosition());
       SmartDashboard.putNumber("RhookEncoder Position", m_RhookEncoder.getPosition());
+      SmartDashboard.putNumber("RhookEncoder Set", RhookSetPoint);
       if(RobotContainer.m_controller.getRawButton(Constants.switchFPort)){
         m_RhookPID.setReference(RhookSetPoint, CANSparkMax.ControlType.kPosition);
         m_LhookPID.setReference(LhookSetPoint, CANSparkMax.ControlType.kPosition);

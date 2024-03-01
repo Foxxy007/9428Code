@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.commands.Spin;
+import frc.robot.commands.shoot;
 
 public class spinner extends SubsystemBase {
   /** Creates a new spinner. */
@@ -21,7 +21,7 @@ public class spinner extends SubsystemBase {
     m_spin = new CANSparkMax(Constants.spinnerMotor, MotorType.kBrushless);
     m_spin.setInverted(true);
     m_spin.set(Constants.spinnerSpeed);
-    setDefaultCommand(new Spin(this));
+    setDefaultCommand(new shoot(this));
   }
 
   @Override

@@ -36,6 +36,8 @@ public final class Constants {
     public static int buttonDPort = 4;
     public static int buttonAPort = 3;
     public static int buttonGPort = 5;
+    public static int buttonHPort = 6;
+    public static int switchFPort = 2;
 
     public static double idleLED = -0.21;
     public static double ringLED = 0.07;

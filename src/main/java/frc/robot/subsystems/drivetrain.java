@@ -44,8 +44,14 @@ public class drivetrain extends SubsystemBase {
   }
 
   public void arcadedrive() {
-    drive = RobotContainer.m_controller.getRawAxis(4);
-    turn = RobotContainer.m_controller.getRawAxis(0);
+    if(!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
+      drive = RobotContainer.m_controller.getRawAxis(4);
+      turn = RobotContainer.m_controller.getRawAxis(0);
+    }else{
+      drive = 0;
+      turn = 0;
+    }
     Drive.arcadeDrive(drive, turn);
+    
   }
 }

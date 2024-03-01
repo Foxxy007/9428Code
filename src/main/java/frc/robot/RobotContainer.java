@@ -13,10 +13,14 @@ import frc.robot.commands.DrivewithJoysticks;
 // import frc.robot.commands.Spin;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
+import frc.robot.commands.armControl;
+
 import frc.robot.subsystems.drivetrain;
 import frc.robot.subsystems.hook;
 import frc.robot.subsystems.intake;
 import frc.robot.subsystems.shooter;
+import frc.robot.subsystems.hook;
+
 // import frc.robot.subsystems.spinner;
 
 /**
@@ -43,7 +47,8 @@ public class RobotContainer {
     // m_spinner.setDefaultCommand(new Spin(m_spinner));
     m_intake.setDefaultCommand(new Intake(m_intake));
     m_shooter.setDefaultCommand(new shoot(m_shooter));
-    
+    m_hook.setDefaultCommand(new armControl(m_hook));
+
 
     configureButtonBindings();
   }

@@ -46,10 +46,10 @@ public final class Constants {
 
     //Hook's Proportion-Integral-Derivative(PID) Constants
     public static double kP = 0.1; 
-    public static double kI = 1e-4;
-    public static double kD = 1; 
+    public static double kI = 0;
+    public static double kD = 0; 
     public static double kIz = 0; 
-    public static double kFF = 0; 
+    public static double kFF = 0.01; 
     public static double kMaxOutput = 1; 
     public static double kMinOutput = -1;
 }

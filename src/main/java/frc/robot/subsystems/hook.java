@@ -30,8 +30,10 @@ public class hook extends SubsystemBase {
   public hook() {
     m_Lhook = new CANSparkMax(Constants.telescopicArmLeftMotor, MotorType.kBrushless); 
     m_LhookEncoder = m_Lhook.getEncoder(); 
+    m_Lhook.getEncoder().setPosition(0);
     m_Rhook = new CANSparkMax(Constants.telescopicArmRightMotor, MotorType.kBrushless); 
     m_RhookEncoder = m_Rhook.getEncoder(); 
+    m_Rhook.getEncoder().setPosition(0);
 
     //PID for closed loop control
     m_LhookPID = m_Lhook.getPIDController();
@@ -51,20 +53,36 @@ public class hook extends SubsystemBase {
     m_RhookPID.setOutputRange(Constants.kMinOutput, Constants.kMaxOutput); 
 
   }
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *  
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
-  }
   public void goUp(){
     if(Robot.GameStage.equals("auto")){
       
     }else if(Robot.GameStage.equals("teleop")){
-      
+      if(RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
+        m_LhookPID.setReference(LhookSetPoint, CANSparkMax.ControlType.kPosition);
+        m_RhookPID.setReference(RhookSetPoint, CANSparkMax.ControlType.kPosition);
+        //if the arm is within the limits, and the controller is not trying to move out of the limits
+        if((m_LhookEncoder.getPosition() <= -82) && RobotContainer.m_controller.getRawAxis(1) > 0){
+          LhookSetPoint = LhookSetPoint+Math.abs(2*RobotContainer.m_controller.getRawAxis(1));
+        }
+        else if((m_LhookEncoder.getPosition() >= 0) && RobotContainer.m_controller.getRawAxis(1) < 0){
+          LhookSetPoint = LhookSetPoint-Math.abs(2*RobotContainer.m_controller.getRawAxis(1));
+        }
+        else if((m_LhookEncoder.getPosition() >= -82 && m_LhookEncoder.getPosition() <= 0)){
+          LhookSetPoint = LhookSetPoint+(2*RobotContainer.m_controller.getRawAxis(1));
+
+        }
+
+        if(m_RhookEncoder.getPosition() < -82){
+          RhookSetPoint = RhookSetPoint+Math.abs(2*RobotContainer.m_controller.getRawAxis(4));
+        }else if(m_RhookEncoder.getPosition() > 0){
+          RhookSetPoint = RhookSetPoint-Math.abs(2*RobotContainer.m_controller.getRawAxis(4));
+        }else{
+          RhookSetPoint = RhookSetPoint+(2*RobotContainer.m_controller.getRawAxis(4));
+        }
+      }else{
+        m_Lhook.set(0);
+        m_Rhook.set(0);
+      }
     }
   }
   @Override
@@ -72,21 +90,8 @@ public class hook extends SubsystemBase {
       SmartDashboard.putNumber("LhookEncoder Position", m_LhookEncoder.getPosition());
       SmartDashboard.putNumber("RhookEncoder Position", m_RhookEncoder.getPosition());
       SmartDashboard.putNumber("RhookEncoder Set", RhookSetPoint);
-      if(RobotContainer.m_controller.getRawButton(Constants.switchFPort)){
-        m_RhookPID.setReference(RhookSetPoint, CANSparkMax.ControlType.kPosition);
-        m_LhookPID.setReference(LhookSetPoint, CANSparkMax.ControlType.kPosition);
-      }else{
-        m_Lhook.set(0);
-        m_Rhook.set(0);
-      }
+      SmartDashboard.putNumber("LhookEncoder Set", LhookSetPoint);
   }
-  public void hook(){
-    if(RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
-      RhookSetPoint = RhookSetPoint*10*RobotContainer.m_controller.getRawAxis(4);
-
-    }
-  }
-
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation

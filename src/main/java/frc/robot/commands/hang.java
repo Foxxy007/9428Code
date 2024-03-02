@@ -6,11 +6,10 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.hook;
-import frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class armControl extends Command {
+public class hang extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final hook m_hook;
 
@@ -19,7 +18,7 @@ public class armControl extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public armControl(hook subsystem) {
+  public hang(hook subsystem) {
     m_hook = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -32,8 +31,7 @@ public class armControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_hook.hook();
-
+    m_hook.goUp();
   }
 
   @Override

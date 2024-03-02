@@ -21,7 +21,7 @@ public class spinner extends SubsystemBase {
     m_spin = new CANSparkMax(Constants.spinnerMotor, MotorType.kBrushless);
     m_spin.setInverted(true);
     m_spin.set(Constants.spinnerSpeed);
-    setDefaultCommand(new shoot(this));
+    //setDefaultCommand(new shoot(this));
   }
 
   @Override

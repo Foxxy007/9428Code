@@ -44,10 +44,14 @@ public class intake extends SubsystemBase {
       m_bottomIntakeRoller.set(Constants.spinnerSpeed);
       m_intakeBelt.set(Constants.spinnerSpeed);
       m_topIntakeRoller.set(Constants.spinnerSpeed);
-    }else if(Robot.GameStage.equals("teleop")){
+    }else if(Robot.GameStage.equals("teleop")&&!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
       m_bottomIntakeRoller.set(RobotContainer.m_controller.getRawAxis(1));
       m_intakeBelt.set(RobotContainer.m_controller.getRawAxis(1));
       m_topIntakeRoller.set(RobotContainer.m_controller.getRawAxis(1));
+    }else{
+      m_bottomIntakeRoller.set(0);
+      m_intakeBelt.set(0);
+      m_topIntakeRoller.set(0);
     }
   }
 

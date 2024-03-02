@@ -5,15 +5,18 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+
 import frc.robot.commands.DrivewithJoysticks;
-// import frc.robot.commands.Spin;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
-import frc.robot.commands.armControl;
+import frc.robot.commands.hang;
 
 import frc.robot.subsystems.drivetrain;
 import frc.robot.subsystems.hook;
@@ -37,17 +40,17 @@ public class RobotContainer {
   private static final intake m_intake = new intake();
   private static final shooter m_shooter = new shooter();
   private static final hook m_hook = new hook();
-
+  PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //Sets the default state of the drivetrain to be the controller axis'
+    SmartDashboard.putNumber("Total Current", powerPanel.getTotalCurrent());
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive));
-    // m_spinner.setDefaultCommand(new Spin(m_spinner));
     m_intake.setDefaultCommand(new Intake(m_intake));
     m_shooter.setDefaultCommand(new shoot(m_shooter));
-    m_hook.setDefaultCommand(new armControl(m_hook));
+    m_hook.setDefaultCommand(new hang(m_hook));
 
 
     configureButtonBindings();

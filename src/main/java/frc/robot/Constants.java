@@ -33,6 +33,8 @@ public final class Constants {
     public static int telescopicArmLeftMotor = 9;
     public static int telescopicArmRightMotor = 1;
 
+    public static int GenericHIDPort = 0;
+
     public static int buttonDPort = 4;
     public static int buttonAPort = 3;
     public static int buttonGPort = 5;

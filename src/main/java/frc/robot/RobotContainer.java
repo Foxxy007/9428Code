@@ -5,26 +5,27 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import edu.wpi.first.util.sendable.SendableRegistry;
+// Limelight imports
+
+// Power Distribution Board imports
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+// Command imports
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-
+// Our commands imports
 import frc.robot.commands.DrivewithJoysticks;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
 import frc.robot.commands.hang;
-
+// Our subsystem imports
 import frc.robot.subsystems.drivetrain;
 import frc.robot.subsystems.hook;
 import frc.robot.subsystems.intake;
 import frc.robot.subsystems.shooter;
-import frc.robot.subsystems.hook;
 
-// import frc.robot.subsystems.spinner;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,13 +34,13 @@ import frc.robot.subsystems.hook;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  //Declare objects that will be used?
-  public static final GenericHID m_controller = new GenericHID(0);
-  // private static final spinner m_spinner = new spinner();
+  //Declare objects that will be used
+  public static final GenericHID m_controller = new GenericHID(Constants.GenericHIDPort);
   private static final drivetrain m_drive = new drivetrain();
   private static final intake m_intake = new intake();
   private static final shooter m_shooter = new shooter();
   private static final hook m_hook = new hook();
+
   PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
 
 
@@ -63,7 +64,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // TODO Undestand what this does.
+    // TODO Undestand how to use this
   }
 
 

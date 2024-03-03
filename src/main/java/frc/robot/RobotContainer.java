@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,9 +44,13 @@ public class RobotContainer {
   private static final shooter m_shooter = new shooter();
   private static final hook m_hook = new hook();
 
-  PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
+  public PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
+  
+  private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  
+  private NetworkTableEntry tx, ty, ta;
 
-
+  public static double rawX=0, rawY=0, rawArea=0;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //Sets the default state of the drivetrain to be the controller axis'
@@ -53,6 +60,13 @@ public class RobotContainer {
     m_shooter.setDefaultCommand(new shoot(m_shooter));
     m_hook.setDefaultCommand(new hang(m_hook));
 
+    //LimeLight Variable Updates
+    tx = table.getEntry("tx"); 
+    ty = table.getEntry("ty");
+    ta = table.getEntry("ta");
+    rawX = tx.getDouble(0.0);
+    rawY = ty.getDouble(0.0);
+    rawArea = ta.getDouble(0.0);
 
     configureButtonBindings();
   }

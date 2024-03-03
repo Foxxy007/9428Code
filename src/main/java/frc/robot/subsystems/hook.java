@@ -72,12 +72,15 @@ public class hook extends SubsystemBase {
 
         }
 
-        if(m_RhookEncoder.getPosition() < -82){
-          RhookSetPoint = RhookSetPoint+Math.abs(2*RobotContainer.m_controller.getRawAxis(4));
-        }else if(m_RhookEncoder.getPosition() > 0){
-          RhookSetPoint = RhookSetPoint-Math.abs(2*RobotContainer.m_controller.getRawAxis(4));
-        }else{
-          RhookSetPoint = RhookSetPoint+(2*RobotContainer.m_controller.getRawAxis(4));
+        if((m_RhookEncoder.getPosition() <= -82) && RobotContainer.m_controller.getRawAxis(1) > 0){
+          LhookSetPoint = LhookSetPoint+Math.abs(2*RobotContainer.m_controller.getRawAxis(1));
+        }
+        else if((m_RhookEncoder.getPosition() >= 0) && RobotContainer.m_controller.getRawAxis(1) < 0){
+          LhookSetPoint = LhookSetPoint-Math.abs(2*RobotContainer.m_controller.getRawAxis(1));
+        }
+        else if((m_RhookEncoder.getPosition() >= -82 && m_RhookEncoder.getPosition() <= 0)){
+          LhookSetPoint = LhookSetPoint+(2*RobotContainer.m_controller.getRawAxis(1));
+
         }
       }else{
         m_Lhook.set(0);

@@ -41,9 +41,9 @@ public class intake extends SubsystemBase {
   }
   public void scoop() {
     if(Robot.GameStage.equals("auto")){
-      m_bottomIntakeRoller.set(Constants.spinnerSpeed);
-      m_intakeBelt.set(Constants.spinnerSpeed);
-      m_topIntakeRoller.set(Constants.spinnerSpeed);
+      // m_bottomIntakeRoller.set(Constants.spinnerSpeed);
+      // m_intakeBelt.set(Constants.spinnerSpeed);
+      // m_topIntakeRoller.set(Constants.spinnerSpeed);
     }else if(Robot.GameStage.equals("teleop")&&!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
       m_bottomIntakeRoller.set(RobotContainer.m_controller.getRawAxis(1));
       m_intakeBelt.set(RobotContainer.m_controller.getRawAxis(1));

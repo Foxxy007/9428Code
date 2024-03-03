@@ -23,6 +23,7 @@ import frc.robot.commands.DrivewithJoysticks;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
 import frc.robot.commands.hang;
+import frc.robot.commands.Autonomous;
 // Our subsystem imports
 import frc.robot.subsystems.drivetrain;
 import frc.robot.subsystems.hook;
@@ -89,6 +90,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new PrintCommand("test");
+    return new AutonomousCommand();
   }
 }

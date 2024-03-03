@@ -54,4 +54,14 @@ public class drivetrain extends SubsystemBase {
     Drive.arcadeDrive(drive, turn);
     
   }
+  public void autoDrive() throws InterruptedException{
+    drive = 0.1;
+    turn = 0;
+    Drive.arcadeDrive(drive, turn);
+    if(frc.robot.){
+    drive = 0;
+    turn = 0;
+    Drive.arcadeDrive(drive, turn);
+    }
+  }
 }

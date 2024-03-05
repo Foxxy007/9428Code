@@ -64,7 +64,6 @@ public class telemetry extends SubsystemBase {
   public void update(){
     SmartDashboard.putBoolean("AHRS Connected", ahrs.isConnected());
     SmartDashboard.putNumber("AHRS Yaw", ahrs.getYaw());
-    SmartDashboard.putNumber("AHRS Displacement", ahrs.getDisplacementX());
 
 
   }

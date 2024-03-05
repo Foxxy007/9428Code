@@ -24,7 +24,7 @@ public class telemetry extends SubsystemBase {
   static final double kP = 0.03;
   static final double kI = 0.00;
   static final double kD = 0.00;
-  static final double kF = 0.00;
+  static final double kF = 0.001;
 
   
 

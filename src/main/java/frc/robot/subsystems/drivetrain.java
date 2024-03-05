@@ -45,7 +45,7 @@ public class drivetrain extends SubsystemBase {
     Drive = new DifferentialDrive(leftMotor, rightMotor);
     var slot0Configs = new Slot0Configs();
     slot0Configs.kP = 0.4; // An error of 0.5 rotations results in 12 V output
-    slot0Configs.kI = 0; // no output for integrated error
+    slot0Configs.kI = 2; // no output for integrated error
     slot0Configs.kD = 0.001; // A velocity of 1 rps results in 0.1 V output
     leftMotor.getConfigurator().apply(slot0Configs);
     rightMotor.getConfigurator().apply(slot0Configs);
@@ -71,6 +71,7 @@ public class drivetrain extends SubsystemBase {
         leftMotor.setControl(m_request.withPosition(currentPosition)); 
         rightMotor.setControl(m_request.withPosition(currentPosition)); 
         SmartDashboard.putNumber("Repeats",currentPosition);
+        currentPosition++;
 
     }
   }

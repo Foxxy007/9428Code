@@ -13,7 +13,7 @@ public class Util {
     //Keeps values between -1 and 1
     public static double clamp(double x){
         double clampedValue;
-        clampedValue = Math.max(-1, Math.min(1, x));
+        clampedValue = Math.max(-0.5, Math.min(0.5, x));
         return clampedValue;
     }
 }

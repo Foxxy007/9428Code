@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+
 // import com.revrobotics.CANSparkMax;
 // import com.revrobotics.RelativeEncoder;
 // import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -38,6 +40,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    CameraServer.startAutomaticCapture();
+
   }
 
   /**
@@ -72,7 +76,7 @@ public class Robot extends TimedRobot {
     GameStage = "auto";
     SmartDashboard.putString("GameStage: ", GameStage);
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

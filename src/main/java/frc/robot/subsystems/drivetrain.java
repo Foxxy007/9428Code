@@ -4,10 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.controls.PositionVoltage;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -19,10 +23,14 @@ public class drivetrain extends SubsystemBase {
   TalonFX rightMotor;  
   TalonFX leftFollowerMotor;
   TalonFX rightFollowerMotor;
+  double currentPosition  = 0;
 
   DifferentialDrive Drive;
   double drive;
   double turn;
+  
+  PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+
 
   
   public drivetrain() {
@@ -35,6 +43,13 @@ public class drivetrain extends SubsystemBase {
     leftMotor.setInverted(true);
     rightMotor.setInverted(false);
     Drive = new DifferentialDrive(leftMotor, rightMotor);
+    var slot0Configs = new Slot0Configs();
+    slot0Configs.kP = 0.4; // An error of 0.5 rotations results in 12 V output
+    slot0Configs.kI = 0; // no output for integrated error
+    slot0Configs.kD = 0.001; // A velocity of 1 rps results in 0.1 V output
+    leftMotor.getConfigurator().apply(slot0Configs);
+    rightMotor.getConfigurator().apply(slot0Configs);
+
   }
 
   @Override
@@ -52,9 +67,14 @@ public class drivetrain extends SubsystemBase {
       turn = 0;
     }
     Drive.arcadeDrive(drive, turn);
-    
+    if(RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
+        leftMotor.setControl(m_request.withPosition(currentPosition)); 
+        rightMotor.setControl(m_request.withPosition(currentPosition)); 
+        SmartDashboard.putNumber("Repeats",currentPosition);
+
+    }
   }
-  public void autoDrive() throws InterruptedException{
+/*   public void autoDrive() throws InterruptedException{
     drive = 0.1;
     turn = 0;
     Drive.arcadeDrive(drive, turn);
@@ -62,6 +82,6 @@ public class drivetrain extends SubsystemBase {
     drive = 0;
     turn = 0;
     Drive.arcadeDrive(drive, turn);
-    }
-  }
+    } */
+  //}
 }

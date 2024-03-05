@@ -4,22 +4,22 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.hook;
-
+import frc.robot.subsystems.telemetry;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class hang extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final hook m_hook;
+public class update_yaw extends Command {
 
-  /**
+  private final telemetry m_telemetry;
+
+   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public hang(hook subsystem) {
-    m_hook = subsystem;
+
+  public update_yaw(telemetry subsystem) {
+    m_telemetry = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -31,8 +31,7 @@ public class hang extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_hook.goUp();
-
+    m_telemetry.update();
   }
 
   @Override

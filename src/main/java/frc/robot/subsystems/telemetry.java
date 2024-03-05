@@ -4,15 +4,43 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 public class telemetry extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
+  AHRS ahrs;
+  PIDController turnController;
+  double rotateToAngleRate;
+  
+
+  static final double kP = 0.03;
+  static final double kI = 0.00;
+  static final double kD = 0.00;
+  static final double kF = 0.00;
+
+  
+
+  static final double kToleranceDegrees = 2.0f;    
+  static final double kTargetAngleDegrees = 90.0f;
+
   public telemetry() {
-    
+      try {
+        ahrs = new AHRS(SPI.Port.kMXP); 
+      }catch(RuntimeException ex ){
+          DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+      }
+      ahrs.resetDisplacement();
+
   }
+  
 
 
 
@@ -29,14 +57,21 @@ public class telemetry extends SubsystemBase {
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
-      
+
+
     }
   }
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void update(){
+    SmartDashboard.putBoolean("AHRS Connected", ahrs.isConnected());
+    SmartDashboard.putNumber("AHRS Yaw", ahrs.getYaw());
+    SmartDashboard.putNumber("AHRS Displacement", ahrs.getDisplacementX());
+
+
   }
 
+  @Override
+  public void periodic() {
+  }
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation

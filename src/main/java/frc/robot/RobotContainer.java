@@ -24,11 +24,14 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
 import frc.robot.commands.hang;
 import frc.robot.commands.Autonomous;
+import frc.robot.commands.update_yaw;
+
 // Our subsystem imports
 import frc.robot.subsystems.drivetrain;
 import frc.robot.subsystems.hook;
 import frc.robot.subsystems.intake;
 import frc.robot.subsystems.shooter;
+import frc.robot.subsystems.telemetry;
 
 
 /**
@@ -44,6 +47,7 @@ public class RobotContainer {
   private static final intake m_intake = new intake();
   private static final shooter m_shooter = new shooter();
   private static final hook m_hook = new hook();
+  private static final telemetry m_telemetry = new telemetry();
 
   public PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
   
@@ -60,6 +64,8 @@ public class RobotContainer {
     m_intake.setDefaultCommand(new Intake(m_intake));
     m_shooter.setDefaultCommand(new shoot(m_shooter));
     m_hook.setDefaultCommand(new hang(m_hook));
+    m_telemetry.setDefaultCommand(new update_yaw(m_telemetry));
+
 
     //LimeLight Variable Updates
     tx = table.getEntry("tx"); 
@@ -88,8 +94,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  //public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new AutonomousCommand();
-  }
+    //return new AutonomousCommand();
+  //}
 }

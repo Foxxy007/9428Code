@@ -58,6 +58,7 @@ public class shooter extends SubsystemBase {
   }
 
   public void shoot(){
+ 
     // TODO: all flywheels shooting at max speed
     if(Robot.GameStage.equals("auto")){
 

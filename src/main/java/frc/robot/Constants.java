@@ -30,8 +30,8 @@ public final class Constants {
     public static int frontLeftFlywheelMotor = 6;
     public static int backRightFlywheelMotor = 8;
 
-    public static int telescopicArmLeftMotor = 9;
-    public static int telescopicArmRightMotor = 1;
+    public static int telescopicArmLeftMotor = 1;
+    public static int telescopicArmRightMotor = 9;
 
     public static int GenericHIDPort = 0;
 
@@ -40,7 +40,7 @@ public final class Constants {
     public static int buttonGPort = 5;
     public static int buttonHPort = 6;
     public static int switchFPort = 2;
-
+    public static int switchCPort = 7;
     public static double idleLED = -0.21;
     public static double ringLED = 0.07;
     public static double speakerLED = -0.97;
@@ -51,7 +51,7 @@ public final class Constants {
     public static double kI = 0;
     public static double kD = 0; 
     public static double kIz = 0; 
-    public static double kFF = 0.01; 
+    public static double kFF = 0; 
     public static double kMaxOutput = 1; 
     public static double kMinOutput = -1;
 }

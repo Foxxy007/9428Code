@@ -16,4 +16,8 @@ public class Util {
         clampedValue = Math.max(-0.5, Math.min(0.5, x));
         return clampedValue;
     }
+    //Return the time elapsed.
+    public static long TimeElapsed(){
+        return (System.currentTimeMillis()-Constants.startTime);
+    }
 }

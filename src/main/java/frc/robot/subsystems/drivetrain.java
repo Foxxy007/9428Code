@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.Util;
 import frc.robot.commands.DrivewithJoysticks;
 
 public class drivetrain extends SubsystemBase {
@@ -23,7 +24,7 @@ public class drivetrain extends SubsystemBase {
   TalonFX rightMotor;  
   TalonFX leftFollowerMotor;
   TalonFX rightFollowerMotor;
-  double currentPosition  = 0;
+  double setPosition  = 0;
 
   DifferentialDrive Drive;
   double drive;
@@ -68,20 +69,20 @@ public class drivetrain extends SubsystemBase {
     }
     Drive.arcadeDrive(drive, turn);
     if(RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
-        leftMotor.setControl(m_request.withPosition(currentPosition)); 
-        rightMotor.setControl(m_request.withPosition(currentPosition)); 
-        SmartDashboard.putNumber("Repeats",currentPosition);
-        currentPosition++;
-
+        leftMotor.setControl(m_request.withPosition(setPosition)); 
+        rightMotor.setControl(m_request.withPosition(setPosition)); 
+        SmartDashboard.putNumber("Set Position",setPosition);
     }
   }
-    public void autoDrive(){
+  public void autoDrive(){
+    while(Util.TimeElapsed()<10000){
       drive = 0.1;
       turn = 0;
-      if((System.currentTimeMillis()-Constants.startTime>1000)){
+      if(Util.TimeElapsed()>1000){
         drive = 0;
         turn = 0;
       }
       Drive.arcadeDrive(drive, turn);
     }
+  }
 }

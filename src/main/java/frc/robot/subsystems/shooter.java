@@ -29,7 +29,7 @@ public class shooter extends SubsystemBase {
   public shooter() {
     m_DistanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     m_DistanceSensor.setAutomaticMode(true);
-    m_LED = new Spark(0);
+    m_LED = new Spark(1);
     m_spin = new CANSparkMax(Constants.spinnerMotor,MotorType.kBrushless);
 
     m_BLflywheel = new CANSparkMax(Constants.backLeftFlywheelMotor,MotorType.kBrushless);

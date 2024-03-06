@@ -72,15 +72,16 @@ public class drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Set Position",setPosition);
     }
   }
-  public void autoDrive(){
-    while(Util.TimeElapsed()<10000){
-      drive = 0.1;
+  public void autoDrive(){ 
+    SmartDashboard.putNumber("Drive", drive);
+    SmartDashboard.putNumber("Turn", turn);
+    drive = 0.1;
+    turn = 0;
+    if(Util.TimeElapsed()>1000){
+      drive = 0;
       turn = 0;
-      if(Util.TimeElapsed()>1000){
-        drive = 0;
-        turn = 0;
-      }
-      Drive.arcadeDrive(drive, turn);
     }
+    Drive.arcadeDrive(drive, turn);
+    
   }
 }

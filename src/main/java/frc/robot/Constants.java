@@ -13,29 +13,37 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static int mainLeft = 1;
-    public static int followerLeft = 2;
-    public static int mainRight = 1;
-    public static int followerRight = 2;
+    // Motor Ports
+    public static int leftMotorPort = 2;
+    public static int leftFollowerMotorPort = 3;
+    public static int rightMotorPort = 1;
+    public static int rightFollowerMotorPort = 4;
 
-    public static int spinnerMotor = 10;
+    // Speeds
     public static double spinnerSpeed = 0.1;
 
+    // Intake Constants
     public static int bottomIntakeRollerMotor = 4;
     public static int intakeBeltMotor = 3;
     public static int topIntakeRollerMotor = 2;
 
+    // Flywheel Constants
     public static int backLeftFlywheelMotor = 7;
     public static int frontRightFlywheelMotor = 5;
     public static int frontLeftFlywheelMotor = 6;
     public static int backRightFlywheelMotor = 8;
+    public static int spinnerMotor = 10;
 
+    // hook ports
     public static int telescopicArmLeftMotor = 1;
     public static int telescopicArmRightMotor = 9;
 
+    // Utility Ports
     public static int GenericHIDPort = 0;
     public static int GenericHIDPort2 = 1;
+    public static int powerPanelModule = 1;
 
+    // First Controller Ports
     public static int buttonDPort = 4;
     public static int buttonAPort = 3;
     public static int buttonGPort = 5;
@@ -45,15 +53,25 @@ public final class Constants {
     public static int driveAxis = 1;//Y-Stick Left
     public static int turnAxis = 3;//X-Stick Right
     public static int intakeAxis = 4;//Y-Stick Right
-
+    
+    // Second Controller Ports
     public static int buttonBPort2 = 2;
     public static int buttonYPort2 = 4;
     public static int buttonLeftBumperPort2 = 5;
+    public static int LHookAxisPort2 = 1;
+    public static int RHookAxisPort2 = 5;
 
+    // LED
+    public static int LEDChannel = 1;
+    // LED State PWM values
     public static double idleLED = -0.21;
     public static double ringLED = 0.07;
     public static double speakerLED = -0.97;
     public static double ampLED = -0.92;
+
+    // Slew Values
+    public static double driveSlewRateLimit = 3;
+    public static double turnSlewRateLimit = 10;
 
     //Hook's Proportion-Integral-Derivative(PID) Constants
     public static double kP = 0.1; 

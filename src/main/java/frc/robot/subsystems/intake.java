@@ -19,7 +19,7 @@ public class intake extends SubsystemBase {
   private final CANSparkMax m_bottomIntakeRoller;
   private final CANSparkMax m_intakeBelt;
   private final CANSparkMax m_topIntakeRoller;
-  /** Creates a new intake. */
+  /* Creates a new intake. */
   public intake() {
     m_bottomIntakeRoller = new CANSparkMax(Constants.bottomIntakeRollerMotor, MotorType.kBrushed);
     m_intakeBelt = new CANSparkMax(Constants.intakeBeltMotor, MotorType.kBrushless);
@@ -41,9 +41,7 @@ public class intake extends SubsystemBase {
   }
   public void scoop() {
     if(Robot.GameStage.equals("auto")){
-      // m_bottomIntakeRoller.set(Constants.spinnerSpeed);
-      // m_intakeBelt.set(Constants.spinnerSpeed);
-      // m_topIntakeRoller.set(Constants.spinnerSpeed);
+      
     }else if(Robot.GameStage.equals("teleop")&&!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
       m_bottomIntakeRoller.set(RobotContainer.m_controller.getRawAxis(Constants.intakeAxis));
       m_intakeBelt.set(RobotContainer.m_controller.getRawAxis(Constants.intakeAxis));

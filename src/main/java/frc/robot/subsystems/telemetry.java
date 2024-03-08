@@ -27,8 +27,6 @@ public class telemetry extends SubsystemBase {
   static final double kD = 0.00;
   static final double kF = 0.001;
 
-  
-
   static final double kToleranceDegrees = 2.0f;    
   static final double kTargetAngleDegrees = 90.0f;
 
@@ -41,9 +39,6 @@ public class telemetry extends SubsystemBase {
       ahrs.resetDisplacement();
 
   }
-  
-
-
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
@@ -54,6 +49,7 @@ public class telemetry extends SubsystemBase {
     // Query some boolean state, such as a digital sensor.
     return false;
   }
+
   public void action(){
     if(Robot.GameStage.equals("auto")){
 
@@ -62,11 +58,11 @@ public class telemetry extends SubsystemBase {
 
     }
   }
+
   public void update(){
     SmartDashboard.putBoolean("AHRS Connected", ahrs.isConnected());
     SmartDashboard.putNumber("AHRS Yaw", ahrs.getYaw());
     SmartDashboard.putNumber("TimeElapsed", Util.TimeElapsed());
-
   }
 
   @Override

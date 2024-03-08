@@ -50,7 +50,7 @@ public class RobotContainer {
   private static final hook m_hook = new hook();
   private static final telemetry m_telemetry = new telemetry();
 
-  public PowerDistribution powerPanel = new PowerDistribution(1, ModuleType.kRev);
+  public PowerDistribution powerPanel = new PowerDistribution(Constants.powerPanelModule, ModuleType.kRev);
   
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   

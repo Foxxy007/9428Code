@@ -32,21 +32,22 @@ public class drivetrain extends SubsystemBase {
   double turn;
   
   PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-  SlewRateLimiter driveFilter = new SlewRateLimiter(3);
-  SlewRateLimiter turnFilter = new SlewRateLimiter(10);
+  SlewRateLimiter driveFilter = new SlewRateLimiter(Constants.driveSlewRateLimit);
+  SlewRateLimiter turnFilter = new SlewRateLimiter(Constants.turnSlewRateLimit);
 
   
   public drivetrain() {
-    leftMotor = new TalonFX(2);
-    rightMotor = new TalonFX(1);
-    leftFollowerMotor = new TalonFX(3);
-    rightFollowerMotor = new TalonFX(4);
+    leftMotor = new TalonFX(Constants.leftMotorPort);
+    rightMotor = new TalonFX(Constants.rightMotorPort);
+    leftFollowerMotor = new TalonFX(Constants.leftFollowerMotorPort);
+    rightFollowerMotor = new TalonFX(Constants.rightFollowerMotorPort);
     leftFollowerMotor.setControl(new Follower(leftMotor.getDeviceID(), false));
     rightFollowerMotor.setControl(new Follower(rightMotor.getDeviceID(), false));
     leftMotor.setInverted(true);
     rightMotor.setInverted(false);
     Drive = new DifferentialDrive(leftMotor, rightMotor);
     var slot0Configs = new Slot0Configs();
+    // TODO: Insert this into the Constants.java
     slot0Configs.kP = 0.04; // An error of 0.5 rotations results in 12 V output
     slot0Configs.kI = 0; // no output for integrated error
     slot0Configs.kD = 0.001; // A velocity of 1 rps results in 0.1 V output

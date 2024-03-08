@@ -43,6 +43,7 @@ import frc.robot.subsystems.telemetry;
 public class RobotContainer {
   //Declare objects that will be used
   public static final GenericHID m_controller = new GenericHID(Constants.GenericHIDPort);
+  public static final GenericHID m_controller2 = new GenericHID(Constants.GenericHIDPort2);
   private static final drivetrain m_drive = new drivetrain();
   private static final intake m_intake = new intake();
   private static final shooter m_shooter = new shooter();
@@ -94,8 +95,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  //public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return new AutonomousCommand();
-  //}
+    return new Autonomous(m_drive);
+  }
 }

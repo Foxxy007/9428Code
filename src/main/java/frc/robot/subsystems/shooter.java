@@ -5,8 +5,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.Rev2mDistanceSensor;
-import com.revrobotics.Rev2mDistanceSensor.Port;
+//import com.revrobotics.Rev2mDistanceSensor;
+//import com.revrobotics.Rev2mDistanceSensor.Port;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,12 +23,12 @@ public class shooter extends SubsystemBase {
   private final CANSparkMax m_BLflywheel;
   private final CANSparkMax m_BRflywheel;
   private final Spark m_LED;
-  private final Rev2mDistanceSensor m_DistanceSensor;
+  //private final Rev2mDistanceSensor m_DistanceSensor;
 
   /** Creates a new shooter. */
   public shooter() {
-    m_DistanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
-    m_DistanceSensor.setAutomaticMode(true);
+    //m_DistanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
+    //m_DistanceSensor.setAutomaticMode(true);
     m_LED = new Spark(1);
     m_spin = new CANSparkMax(Constants.spinnerMotor,MotorType.kBrushless);
 
@@ -83,13 +83,13 @@ public class shooter extends SubsystemBase {
         m_FLflywheel.set(0.1);
         m_FRflywheel.set(0.1);
         m_LED.set(Constants.ampLED);
-      }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
+/*       }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
         m_spin.set(0);
         m_BLflywheel.set(0);
         m_BRflywheel.set(0);
         m_FLflywheel.set(0);
         m_FRflywheel.set(0);
-        m_LED.set(Constants.ringLED);
+        m_LED.set(Constants.ringLED); */
       }else{
         m_spin.set(0);
         m_BLflywheel.set(0);
@@ -112,13 +112,13 @@ public class shooter extends SubsystemBase {
         m_FLflywheel.set(0.1);
         m_FRflywheel.set(0.1);
         m_LED.set(Constants.ampLED);
-      }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
+/*       }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
         m_spin.set(0);
         m_BLflywheel.set(0);
         m_BRflywheel.set(0);
         m_FLflywheel.set(0);
         m_FRflywheel.set(0);
-        m_LED.set(Constants.ringLED);
+        m_LED.set(Constants.ringLED); */
       }else{
         m_spin.set(0);
         m_BLflywheel.set(0);
@@ -139,13 +139,13 @@ public class shooter extends SubsystemBase {
         m_BRflywheel.set(-0.15);
         m_FLflywheel.set(-0.15);
         m_FRflywheel.set(-0.15);
-      }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
+/*       }else if(m_DistanceSensor.getRange() < 14 && m_DistanceSensor.getRange() != -1){
         m_spin.set(0);
         m_BLflywheel.set(0);
         m_BRflywheel.set(0);
         m_FLflywheel.set(0);
         m_FRflywheel.set(0);
-        m_LED.set(Constants.ringLED);
+        m_LED.set(Constants.ringLED); */
       }else{
         m_spin.set(0);
         m_BLflywheel.set(0);

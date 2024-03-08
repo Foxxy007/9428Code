@@ -12,7 +12,7 @@ public class DrivewithJoysticks extends Command {
   /** Creates a new DrivewithJoysticks. */
   public DrivewithJoysticks(drivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
-    //m_drive  drive;
+    m_drive = drive;
     addRequirements(m_drive);
   }
 

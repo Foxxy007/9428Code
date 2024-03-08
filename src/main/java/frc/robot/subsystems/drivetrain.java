@@ -10,6 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -31,7 +32,8 @@ public class drivetrain extends SubsystemBase {
   double turn;
   
   PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
-
+  SlewRateLimiter driveFilter = new SlewRateLimiter(3);
+  SlewRateLimiter turnFilter = new SlewRateLimiter(10);
 
   
   public drivetrain() {
@@ -59,29 +61,28 @@ public class drivetrain extends SubsystemBase {
 
   public void arcadedrive() {
     if(!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
-      drive = RobotContainer.m_controller.getRawAxis(4);
-      turn = RobotContainer.m_controller.getRawAxis(0);
+      drive = driveFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.driveAxis), 1));
+      turn = turnFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.turnAxis), 1));
     }else{
       drive = 0;
       turn = 0;
     }
     Drive.arcadeDrive(drive, turn);
-    if(RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
+/*     if(RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
         leftMotor.setControl(m_request.withPosition(setPosition)); 
         rightMotor.setControl(m_request.withPosition(setPosition)); 
         SmartDashboard.putNumber("Set Position",setPosition);
-    }
+    } */
   }
   public void autoDrive(){ 
     SmartDashboard.putNumber("Drive", drive);
     SmartDashboard.putNumber("Turn", turn);
-    drive = 0.1;
+    drive = 0.45;
     turn = 0;
     if(Util.TimeElapsed()>1000){
-      drive = 0;
+      drive = 0;                                               
       turn = 0;
     }
     Drive.arcadeDrive(drive, turn);
-    
   }
 }

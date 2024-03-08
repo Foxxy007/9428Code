@@ -34,6 +34,7 @@ public final class Constants {
     public static int telescopicArmRightMotor = 9;
 
     public static int GenericHIDPort = 0;
+    public static int GenericHIDPort2 = 1;
 
     public static int buttonDPort = 4;
     public static int buttonAPort = 3;
@@ -41,6 +42,14 @@ public final class Constants {
     public static int buttonHPort = 6;
     public static int switchFPort = 2;
     public static int switchCPort = 7;
+    public static int driveAxis = 1;//Y-Stick Left
+    public static int turnAxis = 3;//X-Stick Right
+    public static int intakeAxis = 4;//Y-Stick Right
+
+    public static int buttonBPort2 = 2;
+    public static int buttonYPort2 = 4;
+    public static int buttonLeftBumperPort2 = 5;
+
     public static double idleLED = -0.21;
     public static double ringLED = 0.07;
     public static double speakerLED = -0.97;

@@ -15,6 +15,7 @@ import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class shooter extends SubsystemBase {
+  private final drivetrain m_driveShooter;
   private final CANSparkMax m_spin;
   private final CANSparkMax m_FLflywheel;
   private final CANSparkMax m_FRflywheel;
@@ -24,6 +25,8 @@ public class shooter extends SubsystemBase {
 
   /** Creates a new shooter. */
   public shooter() {
+
+    m_driveShooter = new drivetrain();
 
     m_LED = new Spark(Constants.LEDChannel);
     m_spin = new CANSparkMax(Constants.spinnerMotor,MotorType.kBrushless);
@@ -54,12 +57,11 @@ public class shooter extends SubsystemBase {
   }
 
   public void shoot(){
- 
-    // TODO: all flywheels shooting at max speed
     if(Robot.GameStage.equals("auto")){
 
     }else if(Robot.GameStage.equals("teleop")){
-      if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){ //Speaker Scoring
+      if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){//Speaker Scoring
+        //m_driveShooter.shooterBoost(0);
         m_spin.set(0);
         m_BLflywheel.set(1);
         m_BRflywheel.set(1);
@@ -67,19 +69,22 @@ public class shooter extends SubsystemBase {
         m_FRflywheel.set(1);
         m_LED.set(Constants.speakerLED);
       }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
+        // m_driveShooter.shooterBoost(0);
         m_spin.set(-0.2);
         m_BLflywheel.set(-0.15);
         m_BRflywheel.set(-0.15);
         m_FLflywheel.set(-0.15);
         m_FRflywheel.set(-0.15);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){ //AmpScoring
-        m_spin.set(0.1);
+      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){//AmpScoring
+        //m_driveShooter.shooterBoost(0);
+        m_spin.set(Constants.spinnerSpeed);
         m_BLflywheel.set(0.25);
         m_BRflywheel.set(0.25);
         m_FLflywheel.set(0.1);
         m_FRflywheel.set(0.1);
         m_LED.set(Constants.ampLED);
-      }else{
+      }else{// Idle
+        // m_driveShooter.shooterBoost(0);// Uncomment in case of we do not stop driving
         m_spin.set(0);
         m_BLflywheel.set(0);
         m_BRflywheel.set(0);
@@ -89,7 +94,14 @@ public class shooter extends SubsystemBase {
       }  
     }
   }
-  public void shootAmp(){
+  public void autoShooter(double power){
+        m_BLflywheel.set(power);
+        m_BRflywheel.set(power);
+        m_FLflywheel.set(power);
+        m_FRflywheel.set(power);
+
+  }
+  public void shootAmp(){//TODO delete since it has been Depricated
     // TODO: set flywheels to amp percentage (look in old code)
     if(Robot.GameStage.equals("auto")){
 
@@ -111,7 +123,7 @@ public class shooter extends SubsystemBase {
       }  
     }
   }
-  public void reloadNote(){
+  public void reloadNote(){//TODO delete since it has been Depricated
     // TODO: reverse flywheels at 0.2 power
     if(Robot.GameStage.equals("auto")){
 

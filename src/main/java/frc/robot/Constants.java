@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.databind.node.DoubleNode;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -21,24 +23,28 @@ public final class Constants {
 
     // Speeds
     public static double spinnerSpeed = 0.1;
+    public static double shooterSpeakerSpeed = 1;
+    public static double shooterBoostSpeed = 0.5;
+    public static double intakeSpeed = 1;
+    public static double drivetrainAutoSpeed = 0.5;
 
-    // Intake Constants
+    // Intake Port Constants
     public static int bottomIntakeRollerMotor = 4;
     public static int intakeBeltMotor = 3;
     public static int topIntakeRollerMotor = 2;
 
-    // Flywheel Constants
+    // Flywheel Port Constants
     public static int backLeftFlywheelMotor = 7;
     public static int frontRightFlywheelMotor = 5;
     public static int frontLeftFlywheelMotor = 6;
     public static int backRightFlywheelMotor = 8;
     public static int spinnerMotor = 10;
 
-    // hook ports
+    // Hook Port Constants
     public static int telescopicArmLeftMotor = 1;
     public static int telescopicArmRightMotor = 9;
 
-    // Utility Ports
+    // Utility Port Constants
     public static int GenericHIDPort = 0;
     public static int GenericHIDPort2 = 1;
     public static int powerPanelModule = 1;

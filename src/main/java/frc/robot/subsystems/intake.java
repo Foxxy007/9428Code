@@ -52,7 +52,11 @@ public class intake extends SubsystemBase {
       m_topIntakeRoller.set(0);
     }
   }
-
+  public void autoIntake(double power){
+      m_bottomIntakeRoller.set(power);
+      m_intakeBelt.set(power);
+      m_topIntakeRoller.set(power);
+  }
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation

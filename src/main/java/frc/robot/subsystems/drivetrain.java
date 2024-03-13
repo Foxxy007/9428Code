@@ -86,4 +86,10 @@ public class drivetrain extends SubsystemBase {
     }
     Drive.arcadeDrive(drive, turn);
   }
+  public void autoDrivetrain(double powerDrive, double powerTurn){
+    Drive.arcadeDrive(powerDrive, powerTurn);
+  }
+  public void shooterBoost(double power){
+    Drive.arcadeDrive(power, 0);
+  }
 }

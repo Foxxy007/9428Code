@@ -23,7 +23,8 @@ import frc.robot.commands.DrivewithJoysticks;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
 import frc.robot.commands.hang;
-import frc.robot.commands.Autonomous;
+import frc.robot.commands.AutonomousOut;//Leave the marked zone
+import frc.robot.commands.AutonomousShooter;//Shoot the speaker
 import frc.robot.commands.update_yaw;
 
 // Our subsystem imports
@@ -64,7 +65,7 @@ public class RobotContainer {
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive));
     m_intake.setDefaultCommand(new Intake(m_intake));
     m_shooter.setDefaultCommand(new shoot(m_shooter));
-    m_hook.setDefaultCommand(new hang(m_hook));
+    //m_hook.setDefaultCommand(new hang(m_hook));//?Comment out
     m_telemetry.setDefaultCommand(new update_yaw(m_telemetry));
 
 
@@ -97,6 +98,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new Autonomous(m_drive);
+    return new AutonomousShooter(m_shooter,m_intake,m_drive);
   }
 }

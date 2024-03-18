@@ -90,4 +90,9 @@ public final class Constants {
 
     //Autonomous Time
     public static long startTime;
+
+    //Autos
+    
+    private static final String kDefaultAuto = "Default";
+    private static final String kCustomAuto = "My Auto";
 }

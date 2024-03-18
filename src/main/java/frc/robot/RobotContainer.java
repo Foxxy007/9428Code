@@ -65,7 +65,7 @@ public class RobotContainer {
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive));
     m_intake.setDefaultCommand(new Intake(m_intake));
     m_shooter.setDefaultCommand(new shoot(m_shooter));
-    //m_hook.setDefaultCommand(new hang(m_hook));//?Comment out
+    m_hook.setDefaultCommand(new hang(m_hook));//?Comment out
     m_telemetry.setDefaultCommand(new update_yaw(m_telemetry));
 
 

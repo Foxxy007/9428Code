@@ -53,6 +53,7 @@ public class telemetry extends SubsystemBase {
   public void action(){
     if(Robot.GameStage.equals("auto")){
 
+      
     }else if(Robot.GameStage.equals("teleop")){
 
 

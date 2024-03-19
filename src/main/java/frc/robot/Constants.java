@@ -29,9 +29,9 @@ public final class Constants {
     public static double drivetrainAutoSpeed = 0.5;
 
     // Intake Port Constants
-    public static int bottomIntakeRollerMotor = 4;
+    public static int bottomIntakeRollerMotor = 2;
     public static int intakeBeltMotor = 3;
-    public static int topIntakeRollerMotor = 2;
+    public static int topIntakeRollerMotor = 4;
 
     // Flywheel Port Constants
     public static int backLeftFlywheelMotor = 7;

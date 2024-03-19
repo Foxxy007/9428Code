@@ -21,12 +21,12 @@ public class intake extends SubsystemBase {
   private final CANSparkMax m_topIntakeRoller;
   /* Creates a new intake. */
   public intake() {
-    m_bottomIntakeRoller = new CANSparkMax(Constants.bottomIntakeRollerMotor, MotorType.kBrushed);
+    m_bottomIntakeRoller = new CANSparkMax(Constants.bottomIntakeRollerMotor, MotorType.kBrushless);
     m_intakeBelt = new CANSparkMax(Constants.intakeBeltMotor, MotorType.kBrushless);
-    m_topIntakeRoller = new CANSparkMax(Constants.topIntakeRollerMotor, MotorType.kBrushed);
+    m_topIntakeRoller = new CANSparkMax(Constants.topIntakeRollerMotor, MotorType.kBrushless);
     
-    m_bottomIntakeRoller.setInverted(true);
-    m_topIntakeRoller.setInverted(true);
+    m_bottomIntakeRoller.setInverted(false);
+    m_topIntakeRoller.setInverted(false);
 
     
     this.setDefaultCommand(new Intake(this));

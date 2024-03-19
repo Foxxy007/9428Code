@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 // Our commands imports
 import frc.robot.commands.DrivewithJoysticks;
+import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
 import frc.robot.commands.hang;
@@ -98,6 +99,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new AutonomousShooter(m_shooter,m_intake,m_drive);
+    // return new AutonomousShooter(m_shooter,m_intake,m_drive);
+    return new AutonomousOut(m_drive);
   }
 }

@@ -46,6 +46,7 @@ public class drivetrain extends SubsystemBase {
     leftMotor.setInverted(true);
     rightMotor.setInverted(false);
     Drive = new DifferentialDrive(leftMotor, rightMotor);
+    Drive.setExpiration(1);
     var slot0Configs = new Slot0Configs();
     // TODO: Insert this into the Constants.java
     slot0Configs.kP = 0.04; // An error of 0.5 rotations results in 12 V output
@@ -68,6 +69,8 @@ public class drivetrain extends SubsystemBase {
       drive = 0;
       turn = 0;
     }
+    SmartDashboard.putNumber("Drive", drive);
+    SmartDashboard.putNumber("Turn", turn);
     Drive.arcadeDrive(drive, turn);
 /*     if(RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
         leftMotor.setControl(m_request.withPosition(setPosition)); 

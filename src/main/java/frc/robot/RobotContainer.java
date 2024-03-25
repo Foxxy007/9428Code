@@ -98,8 +98,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    // return new AutonomousShooter(m_shooter,m_intake,m_drive);
-    return new AutonomousOut(m_drive);
+    return new AutonomousShooter(m_shooter,m_intake,m_drive);
+    // return new AutonomousOut(m_drive);
   }
 }

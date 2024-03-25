@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.Util;
 import frc.robot.commands.Intake;
 
 public class hook extends SubsystemBase {
@@ -69,24 +70,29 @@ public class hook extends SubsystemBase {
           m_LhookPID.setReference(LhookSetPoint, CANSparkMax.ControlType.kPosition);
           m_RhookPID.setReference(RhookSetPoint, CANSparkMax.ControlType.kPosition);
           //if the arm is within the limits, and the controller is not trying to move out of the limits
-          if((m_LhookEncoder.getPosition() <= 0) && -RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2) > 0){
-            LhookSetPoint = LhookSetPoint+Math.abs(2*RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2));
+          if((m_LhookEncoder.getPosition() <= 0) && (-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2)) > 0)){
+            LhookSetPoint += Math.abs(2*Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2)));
           }
-          else if((m_LhookEncoder.getPosition() >= 100) && -RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2) < 0){
-            LhookSetPoint = LhookSetPoint-Math.abs(2*RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2));
+          else if((m_LhookEncoder.getPosition() >= Constants.maxHookL) && (-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2)) < 0)){
+            LhookSetPoint -= Math.abs(2*Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2)));
           }
-          else if((m_LhookEncoder.getPosition() >= 0 && m_LhookEncoder.getPosition() <= 100)){
-            LhookSetPoint = LhookSetPoint+(2*-RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2));
+          else if((m_LhookEncoder.getPosition() >= 0 && m_LhookEncoder.getPosition() <= Constants.maxHookL)){
+            LhookSetPoint += 2*-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2));
           }
-
-          if((m_RhookEncoder.getPosition() <= 0) && -RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2) > 0){
-            RhookSetPoint = RhookSetPoint+Math.abs(2*RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2));
+          if(LhookSetPoint < 0){
+            LhookSetPoint = 0;
           }
-          else if((m_RhookEncoder.getPosition() >= 95) && -RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2) < 0){
-            RhookSetPoint = RhookSetPoint-Math.abs(2*RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2));
+          if((m_RhookEncoder.getPosition() <= 0) && (-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2)) > 0)){
+            RhookSetPoint += Math.abs(2*Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2)));
           }
-          else if((m_RhookEncoder.getPosition() >= 0 && m_RhookEncoder.getPosition() <= 95)){
-            RhookSetPoint = RhookSetPoint+(2*-RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2));
+          else if((m_RhookEncoder.getPosition() >= Constants.maxHookR) && (-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2)) < 0)){
+            RhookSetPoint -= Math.abs(2*Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2)));
+          }
+          else if((m_RhookEncoder.getPosition() >= 0 && m_RhookEncoder.getPosition() <= Constants.maxHookR)){
+            RhookSetPoint += 2*-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2));
+          }
+          if(RhookSetPoint < 0){
+            RhookSetPoint = 0;
           }
         }else{
           m_Lhook.set(0);
@@ -94,8 +100,8 @@ public class hook extends SubsystemBase {
         }
       }else{
         if(RobotContainer.m_controller2.getRawButton(Constants.buttonBPort2)){
-          LhookSetPoint = LhookSetPoint+(2*-RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2));
-          RhookSetPoint = RhookSetPoint+(2*-RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2));
+          LhookSetPoint += (2*-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.LHookAxisPort2)));
+          RhookSetPoint += (2*-Util.dead(RobotContainer.m_controller2.getRawAxis(Constants.RHookAxisPort2)));
           m_LhookPID.setReference(LhookSetPoint, CANSparkMax.ControlType.kPosition);
           m_RhookPID.setReference(RhookSetPoint, CANSparkMax.ControlType.kPosition);
         }else{

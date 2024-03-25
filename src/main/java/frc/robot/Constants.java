@@ -22,11 +22,11 @@ public final class Constants {
     public static int rightFollowerMotorPort = 4;
 
     // Speeds
-    public static double spinnerSpeed = 0.1;
+    public static double spinnerSpeed = 0.15;
     public static double shooterSpeakerSpeed = 1;
     public static double shooterBoostSpeed = 0.5;
     public static double intakeSpeed = 1;
-    public static double drivetrainAutoSpeed = 0.5;
+    public static double drivetrainAutoSpeed = 0.65;
 
     // Intake Port Constants
     public static int bottomIntakeRollerMotor = 2;
@@ -91,6 +91,9 @@ public final class Constants {
     //Autonomous Time
     public static long startTime;
 
+    // Limits
+    public static int maxHookL = 73;
+    public static int maxHookR = 76;
     //Autos
     
     private static final String kDefaultAuto = "Default";

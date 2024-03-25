@@ -81,7 +81,7 @@ public class drivetrain extends SubsystemBase {
   public void autoDrive(){ 
     SmartDashboard.putNumber("Drive", drive);
     SmartDashboard.putNumber("Turn", turn);
-    drive = 0.45;
+    drive = 0.7;
     turn = 0;
     if(Util.TimeElapsed()>1000){
       drive = 0;                                               

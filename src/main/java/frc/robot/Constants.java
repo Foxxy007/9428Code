@@ -45,8 +45,8 @@ public final class Constants {
     public static int telescopicArmRightMotor = 9;
 
     // Utility Port Constants
-    public static int GenericHIDPort = 0;
-    public static int GenericHIDPort2 = 1;
+    public static int ControllerPort1 = 0;
+    public static int ControllerPort2 = 1;
     public static int powerPanelModule = 1;
 
     // First Controller Ports

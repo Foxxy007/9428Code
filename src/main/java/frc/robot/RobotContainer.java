@@ -8,19 +8,15 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // Limelight imports
-
+// TODO: make Limelight work.
 // Power Distribution Board imports
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 // Command imports
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
-// Our commands imports
 import frc.robot.commands.DrivewithJoysticks;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
 import frc.robot.commands.hang;
@@ -44,8 +40,8 @@ import frc.robot.subsystems.telemetry;
  */
 public class RobotContainer {
   //Declare objects that will be used
-  public static final GenericHID m_controller = new GenericHID(Constants.GenericHIDPort);
-  public static final GenericHID m_controller2 = new GenericHID(Constants.GenericHIDPort2);
+  public static final GenericHID m_controller = new GenericHID(Constants.ControllerPort1);
+  public static final GenericHID m_controller2 = new GenericHID(Constants.ControllerPort2);
   private static final drivetrain m_drive = new drivetrain();
   private static final intake m_intake = new intake();
   private static final shooter m_shooter = new shooter();
@@ -66,7 +62,7 @@ public class RobotContainer {
     m_drive.setDefaultCommand(new DrivewithJoysticks(m_drive));
     m_intake.setDefaultCommand(new Intake(m_intake));
     m_shooter.setDefaultCommand(new shoot(m_shooter));
-    m_hook.setDefaultCommand(new hang(m_hook));//?Comment out
+    m_hook.setDefaultCommand(new hang(m_hook));
     m_telemetry.setDefaultCommand(new update_yaw(m_telemetry));
 
 
@@ -84,7 +80,7 @@ public class RobotContainer {
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick}, and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {

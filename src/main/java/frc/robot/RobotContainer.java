@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.CommandGenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // Limelight imports
 // TODO: make Limelight work.
@@ -40,8 +40,8 @@ import frc.robot.subsystems.telemetry;
  */
 public class RobotContainer {
   //Declare objects that will be used
-  public static final GenericHID m_controller = new GenericHID(Constants.ControllerPort1);
-  public static final GenericHID m_controller2 = new GenericHID(Constants.ControllerPort2);
+  public static final CommandGenericHID m_controller = new CommandGenericHID(Constants.ControllerPort1);
+  public static final CommandGenericHID m_controller2 = new CommandGenericHID(Constants.ControllerPort2);
   private static final drivetrain m_drive = new drivetrain();
   private static final intake m_intake = new intake();
   private static final shooter m_shooter = new shooter();

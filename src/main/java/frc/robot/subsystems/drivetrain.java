@@ -31,7 +31,7 @@ public class drivetrain extends SubsystemBase {
   double drive;
   double turn;
   
-  PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+  // PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
   SlewRateLimiter driveFilter = new SlewRateLimiter(Constants.driveSlewRateLimit);
   SlewRateLimiter turnFilter = new SlewRateLimiter(Constants.turnSlewRateLimit);
 
@@ -81,13 +81,13 @@ public class drivetrain extends SubsystemBase {
   public void autoDrive(){ 
     SmartDashboard.putNumber("Drive", drive);
     SmartDashboard.putNumber("Turn", turn);
-    drive = 0.7;
-    turn = 0;
+    drive = 0;
+    turn = 0.5;
     if(Util.TimeElapsed()>1000){
       drive = 0;                                               
       turn = 0;
     }
-    Drive.arcadeDrive(drive, turn);
+    // Drive.arcadeDrive(drive, turn);
   }
   public void autoDrivetrain(double powerDrive, double powerTurn){
     Drive.arcadeDrive(powerDrive, powerTurn);

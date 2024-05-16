@@ -68,7 +68,7 @@ public final class Constants {
     public static int RHookAxisPort2 = 5;
 
     // LED
-    public static int LEDChannel = 1;
+    public static int LEDChannel = 0;
     // LED State PWM values
     public static double idleLED = -0.21;
     public static double ringLED = 0.07;

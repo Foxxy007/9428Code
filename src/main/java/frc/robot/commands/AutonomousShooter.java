@@ -40,27 +40,30 @@ public class AutonomousShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute(){
-    if(Util.TimeElapsed()<500){
-      m_drivetrainAuto.autoDrivetrain(-Constants.drivetrainAutoSpeed, 0);
-    }
-    if(Util.TimeElapsed()>500 && Util.TimeElapsed()<2000){
-      m_drivetrainAuto.autoDrivetrain(0, 0);
-    }
-    if(Util.TimeElapsed()<2000){
-    m_shooterAuto.autoShooter(Constants.shooterSpeakerSpeed);
-    }
-    if(Util.TimeElapsed()>2000 && Util.TimeElapsed()<4000){
-      m_intakeAuto.autoIntake(Constants.intakeSpeed);
-    }
-    if(Util.TimeElapsed()>5000){
-      m_shooterAuto.autoShooter(0);
-      m_intakeAuto.autoIntake(0);
-     }
-    if(Util.TimeElapsed()>5000 && Util.TimeElapsed()<6000){
-      m_drivetrainAuto.autoDrivetrain(Constants.drivetrainAutoSpeed, 0);
-    }
-    if(Util.TimeElapsed()>6000){
-      m_drivetrainAuto.autoDrivetrain(0, 0);
+    // if(Util.TimeElapsed()<500){
+    //   m_drivetrainAuto.autoDrivetrain(-Constants.drivetrainAutoSpeed, 0);
+    // }
+    // if(Util.TimeElapsed()>500 && Util.TimeElapsed()<2000){
+    //   m_drivetrainAuto.autoDrivetrain(0, 0);
+    // }
+    // if(Util.TimeElapsed()<2000){
+    // m_shooterAuto.autoShooter(Constants.shooterSpeakerSpeed);
+    // }
+    // if(Util.TimeElapsed()>2000 && Util.TimeElapsed()<4000){
+    //   m_intakeAuto.autoIntake(Constants.intakeSpeed);
+    // }
+    // if(Util.TimeElapsed()>5000){
+    //   m_shooterAuto.autoShooter(0);
+    //   m_intakeAuto.autoIntake(0);
+    //  }
+    // if(Util.TimeElapsed()>5000 && Util.TimeElapsed()<6000){
+    //   m_drivetrainAuto.autoDrivetrain(Constants.drivetrainAutoSpeed, 0);
+    // }
+    // if(Util.TimeElapsed()>6000){
+    //   m_drivetrainAuto.autoDrivetrain(0, 0);
+    // }
+    if(Util.TimeElapsed() < 1000){
+      m_drivetrainAuto.autoDrive();
     }
   }
 

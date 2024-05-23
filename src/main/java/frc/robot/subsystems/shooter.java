@@ -62,6 +62,7 @@ public class shooter extends SubsystemBase {
     }else if(Robot.GameStage.equals("teleop")){
       if(RobotContainer.m_controller.getRawButton(Constants.buttonAPort)){//Speaker Scoring
         //m_driveShooter.shooterBoost(0);
+        //B-down
         m_spin.set(0);
         m_BLflywheel.set(1);
         m_BRflywheel.set(1);
@@ -77,6 +78,7 @@ public class shooter extends SubsystemBase {
         m_FRflywheel.set(-0.15);
       }else if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){//AmpScoring
         //m_driveShooter.shooterBoost(0);
+        //C-up
         m_spin.set(Constants.spinnerSpeed+0.4*0.5*(RobotContainer.m_controller.getRawAxis(2)+1));
         m_BLflywheel.set(0.25);
         m_BRflywheel.set(0.25);

@@ -61,10 +61,11 @@ public class drivetrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  // Drive joysticks
   public void arcadedrive() {
     if(!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
-      drive = driveFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.driveAxis), 1));
-      turn = turnFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.turnAxis), 1));
+      drive = driveFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.driveAxis), 1))/2;
+      turn = turnFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.turnAxis),1))/2;
     }else{
       drive = 0;
       turn = 0;

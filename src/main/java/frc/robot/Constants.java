@@ -57,7 +57,7 @@ public final class Constants {
     public static int switchFPort = 2;
     public static int switchCPort = 7;
     public static int driveAxis = 1;//Y-Stick Left
-    public static int turnAxis = 3;//X-Stick Right
+    public static int turnAxis = 2;//X-Stick Right
     public static int intakeAxis = 4;//Y-Stick Right
     
     // Second Controller Ports

@@ -11,10 +11,21 @@ import edu.wpi.first.cameraserver.CameraServer;
 // import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,9 +35,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  private static final double kMetersPerPulse = 0.01;
+  private static final double kElevatorMinimumLength = 0.5;
   private RobotContainer m_robotContainer;
-
+  private MechanismLigament2d m_elevator;
+  private MechanismLigament2d m_wrist;
   public static String GameStage = "";  
     private String m_autoSelected;
     private final SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -44,8 +57,23 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
+      // the main mechanism object
+    Mechanism2d mech = new Mechanism2d(3, 3);
+    // the mechanism root node
+    MechanismRoot2d root = mech.getRoot("climber", 2, 0);
 
+    // MechanismLigament2d objects represent each "section"/"stage" of the mechanism, and are based
+    // off the root node or another ligament object
+    m_elevator = root.append(new MechanismLigament2d("elevator", kElevatorMinimumLength, 135));
+    m_wrist =
+        m_elevator.append(
+            new MechanismLigament2d("wrist", 0.5, 90, 6, new Color8Bit(Color.kPurple)));
+
+    // post the mechanism to the dashboard
+    SmartDashboard.putData("Mech2d", mech);
   }
+
+  
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like

@@ -62,8 +62,15 @@ public class AutonomousShooter extends Command {
     // if(Util.TimeElapsed()>6000){
     //   m_drivetrainAuto.autoDrivetrain(0, 0);
     // }
-    if(Util.TimeElapsed() < 1000){
-      m_drivetrainAuto.autoDrive();
+    if(Util.TimeElapsed() < 500){
+      m_drivetrainAuto.autoDrivetrain(-0.3, -0.4);
+    }else if(Util.TimeElapsed() < 1000){
+      m_intakeAuto.autoIntake(0.5);
+      m_shooterAuto.autoShooter(0.5);
+    }else{
+      m_drivetrainAuto.autoDrivetrain(0, 0);
+      m_intakeAuto.autoIntake(0);
+      m_shooterAuto.autoShooter(0);
     }
   }
 

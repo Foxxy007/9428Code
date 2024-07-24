@@ -24,8 +24,8 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake;
 import frc.robot.commands.shoot;
 import frc.robot.commands.hang;
-import frc.robot.commands.AutonomousOut;//Leave the marked zone
-import frc.robot.commands.AutonomousShooter;//Shoot the speaker
+//import frc.robot.commands.AutonomousOut;//Leave the marked zone
+//import frc.robot.commands.AutonomousShooter;//Shoot the speaker
 import frc.robot.commands.update_yaw;
 
 // Our subsystem imports
@@ -97,8 +97,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return new AutonomousShooter(m_shooter,m_intake,m_drive);
-    // return new AutonomousOut(m_drive);
-  }
+  // public Command getAutonomousCommand() {
+  //   //return new AutonomousShooter(m_shooter,m_intake,m_drive);
+  //   // return new AutonomousOut(m_drive);
+  // }
 }

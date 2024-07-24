@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
@@ -54,6 +56,7 @@ public class drivetrain extends SubsystemBase {
     slot0Configs.kD = 0.001; // A velocity of 1 rps results in 0.1 V output
     leftMotor.getConfigurator().apply(slot0Configs);
     rightMotor.getConfigurator().apply(slot0Configs);
+
   }
 
   @Override
@@ -63,13 +66,16 @@ public class drivetrain extends SubsystemBase {
 
   // Drive joysticks
   public void arcadedrive() {
-    if(!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
-      drive = driveFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.driveAxis), 1))/2;
-      turn = turnFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.turnAxis),1))/2;
-    }else{
-      drive = 0;
-      turn = 0;
-    }
+    drive = driveFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.driveAxis), 1));
+    turn = turnFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.turnAxis),1));
+    
+    // if(!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
+    //   drive = driveFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.driveAxis), 1))/2;
+    //   turn = turnFilter.calculate(Util.inputCurve(RobotContainer.m_controller.getRawAxis(Constants.turnAxis),1))/2;
+    // }else{
+    //   drive = 0;
+    //   turn = 0;
+    // 
     SmartDashboard.putNumber("Drive", drive);
     SmartDashboard.putNumber("Turn", turn);
     Drive.arcadeDrive(drive, turn);

@@ -50,15 +50,15 @@ public final class Constants {
     public static int powerPanelModule = 1;
 
     // First Controller Ports
-    public static int buttonDPort = 4;
-    public static int buttonAPort = 3;
+    public static int buttonDPort = 8;
+    public static int buttonAPort = 7;
     public static int buttonGPort = 5;
     public static int buttonHPort = 6;
     public static int switchFPort = 2;
     public static int switchCPort = 7;
     public static int driveAxis = 1;//Y-Stick Left
     public static int turnAxis = 2;//X-Stick Right
-    public static int intakeAxis = 4;//Y-Stick Right
+    public static int intakeAxis = 3;//Y-Stick Right
     
     // Second Controller Ports
     public static int buttonBPort2 = 2;

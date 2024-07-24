@@ -40,9 +40,10 @@ public class intake extends SubsystemBase {
     SmartDashboard.putNumber("Bottom Intake Roller", m_bottomIntakeRoller.get());
   }
   public void scoop() {
+    
     if(Robot.GameStage.equals("auto")){
       
-    }else if(Robot.GameStage.equals("teleop")&&!RobotContainer.m_controller.getRawButton(Constants.buttonHPort)){
+    }else if(Robot.GameStage.equals("teleop")){
       m_bottomIntakeRoller.set(RobotContainer.m_controller.getRawAxis(Constants.intakeAxis));
       m_intakeBelt.set(RobotContainer.m_controller.getRawAxis(Constants.intakeAxis));
       m_topIntakeRoller.set(RobotContainer.m_controller.getRawAxis(Constants.intakeAxis));

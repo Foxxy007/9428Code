@@ -69,13 +69,13 @@ public class shooter extends SubsystemBase {
         m_FLflywheel.set(1);
         m_FRflywheel.set(1);
         m_LED.set(Constants.speakerLED);
-      }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
-        // m_driveShooter.shooterBoost(0);
-        m_spin.set(-0.2);
-        m_BLflywheel.set(-0.15);
-        m_BRflywheel.set(-0.15);
-        m_FLflywheel.set(-0.15);
-        m_FRflywheel.set(-0.15);
+      // }else if(RobotContainer.m_controller.getRawButton(Constants.buttonGPort)){//Intake through shooter
+      //   // m_driveShooter.shooterBoost(0);
+      //   m_spin.set(-0.2);
+      //   m_BLflywheel.set(-0.15);
+      //   m_BRflywheel.set(-0.15);
+      //   m_FLflywheel.set(-0.15);
+      //   m_FRflywheel.set(-0.15);
       }else if(RobotContainer.m_controller.getRawButton(Constants.buttonDPort)){//AmpScoring
         //m_driveShooter.shooterBoost(0);
         //C-up
